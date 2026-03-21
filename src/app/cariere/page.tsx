@@ -3,6 +3,8 @@
 import { ArrowRight, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 
+import { DACODA_CONFIG, submitToFormspree } from '@/lib/config';
+
 export default function CarierePage() {
   const [form, setForm] = useState({
     name: '',
@@ -24,18 +26,15 @@ export default function CarierePage() {
     e.preventDefault();
     setStatus('sending');
     try {
-      const res = await fetch(
-        `https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID ?? 'REPLACE_WITH_FORMSPREE_ID'}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            _subject: `Cariere — ${form.pozitie || 'General'}`,
-            ...form,
-          }),
-        },
-      );
-      if (res.ok) {
+      const result = await submitToFormspree(DACODA_CONFIG.formspree.contact, {
+        _subject: `Aplicatie: ${form.pozitie || 'General'} — ${form.name}`,
+        _replyto: form.email,
+        Nume: form.name,
+        Email: form.email,
+        Pozitie: form.pozitie,
+        Mesaj: form.mesaj ?? '',
+      });
+      if (result.ok) {
         setStatus('sent');
         setForm({ name: '', email: '', pozitie: '', mesaj: '' });
       } else {

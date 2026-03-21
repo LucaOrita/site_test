@@ -2,6 +2,7 @@
 
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const stats = [
@@ -34,6 +35,18 @@ export default function DacodaHero() {
         backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M0 0l60 60M60 0L0 60'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
       }}
     >
+      {/* Background image with overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=75"
+          alt="Autostradă transport rutier internațional"
+          fill
+          className="object-cover opacity-20"
+          priority
+          sizes="100vw"
+        />
+      </div>
+
       {/* Content */}
       <div className="relative z-10 container flex min-h-screen flex-col justify-center px-4 pt-20 pb-32 lg:px-6">
         <motion.p

@@ -3,6 +3,8 @@
 import { ArrowRight, Clock, Mail, Phone } from 'lucide-react';
 import { useState } from 'react';
 
+import { DACODA_CONFIG, submitToFormspree } from '@/lib/config';
+
 const CARGO_TYPES = [
   'Rutier Standard',
   'ADR',
@@ -19,6 +21,8 @@ export default function DacodaCta() {
     cargoType: '',
     phone: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -26,10 +30,26 @@ export default function DacodaCta() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Will integrate with Formspree or /cerere-oferta
-    window.location.href = `/cerere-oferta?origin=${encodeURIComponent(form.origin)}&destination=${encodeURIComponent(form.destination)}&type=${encodeURIComponent(form.cargoType)}&phone=${encodeURIComponent(form.phone)}`;
+    setLoading(true);
+    const formEl = e.currentTarget;
+    const formData = new FormData(formEl);
+
+    const result = await submitToFormspree(DACODA_CONFIG.formspree.cerere, {
+      _subject: `Cerere rapida: ${formData.get('origin')} → ${formData.get('destination')}`,
+      Origine: String(formData.get('origin') ?? ''),
+      Destinatie: String(formData.get('destination') ?? ''),
+      'Tip transport': String(formData.get('cargoType') ?? ''),
+      Telefon: String(formData.get('phone') ?? ''),
+      Sursa: 'Formular rapid homepage',
+    });
+
+    setLoading(false);
+    if (result.ok) {
+      setSuccess(true);
+      formEl.reset();
+    }
   };
 
   return (
@@ -73,55 +93,62 @@ export default function DacodaCta() {
 
           {/* Right — form */}
           <div>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="text"
-                name="origin"
-                placeholder="De unde pleacă marfa?"
-                value={form.origin}
-                onChange={handleChange}
-                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/50 transition-colors focus:border-[var(--dacoda-orange)] focus:outline-none"
-              />
-              <input
-                type="text"
-                name="destination"
-                placeholder="Unde ajunge marfa?"
-                value={form.destination}
-                onChange={handleChange}
-                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/50 transition-colors focus:border-[var(--dacoda-orange)] focus:outline-none"
-              />
-              <select
-                name="cargoType"
-                value={form.cargoType}
-                onChange={handleChange}
-                className="w-full appearance-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white/50 transition-colors focus:border-[var(--dacoda-orange)] focus:outline-none"
-                style={form.cargoType ? { color: 'white' } : undefined}
-              >
-                <option value="" disabled>
-                  Tip transport
-                </option>
-                {CARGO_TYPES.map((type) => (
-                  <option key={type} value={type} className="text-gray-900">
-                    {type}
+            {success ? (
+              <p className="text-center font-medium text-white">
+                ✅ Cererea a fost trimisă! Te contactăm în 2 ore.
+              </p>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <input
+                  type="text"
+                  name="origin"
+                  placeholder="De unde pleacă marfa?"
+                  value={form.origin}
+                  onChange={handleChange}
+                  className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/50 transition-colors focus:border-[var(--dacoda-orange)] focus:outline-none"
+                />
+                <input
+                  type="text"
+                  name="destination"
+                  placeholder="Unde ajunge marfa?"
+                  value={form.destination}
+                  onChange={handleChange}
+                  className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/50 transition-colors focus:border-[var(--dacoda-orange)] focus:outline-none"
+                />
+                <select
+                  name="cargoType"
+                  value={form.cargoType}
+                  onChange={handleChange}
+                  className="w-full appearance-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white/50 transition-colors focus:border-[var(--dacoda-orange)] focus:outline-none"
+                  style={form.cargoType ? { color: 'white' } : undefined}
+                >
+                  <option value="" disabled>
+                    Tip transport
                   </option>
-                ))}
-              </select>
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Telefon de contact"
-                value={form.phone}
-                onChange={handleChange}
-                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/50 transition-colors focus:border-[var(--dacoda-orange)] focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="bg-dacoda-orange hover:bg-dacoda-orange-dark flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium text-white transition-colors"
-              >
-                Trimite cererea
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </form>
+                  {CARGO_TYPES.map((type) => (
+                    <option key={type} value={type} className="text-gray-900">
+                      {type}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Telefon de contact"
+                  value={form.phone}
+                  onChange={handleChange}
+                  className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/50 transition-colors focus:border-[var(--dacoda-orange)] focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-dacoda-orange hover:bg-dacoda-orange-dark flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {loading ? 'Se trimite...' : 'Trimite cererea'}
+                  {!loading && <ArrowRight className="h-4 w-4" />}
+                </button>
+              </form>
+            )}
 
             <p className="mt-4 text-center text-xs text-white/50">
               Sau scrie-ne direct pe{' '}

@@ -15,6 +15,7 @@ import {
   Truck,
 } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import DacodaServiceCta from '@/components/sections/dacoda-service-cta';
@@ -25,6 +26,11 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import Breadcrumb from '@/components/ui/breadcrumb';
+import {
+  makeBreadcrumbSchema,
+  makeFaqSchema,
+  makeServiceSchema,
+} from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: 'Transport Rutier Internațional | DACODA SRL',
@@ -156,15 +162,93 @@ const faqs = [
   },
 ];
 
+const serviceSchema = makeServiceSchema({
+  name: 'Transport Rutier Internațional FTL LTL Grupaj',
+  description:
+    'Organizăm transport rutier internațional FTL (camion complet), LTL (parțial) și grupaj în toată Europa, CSI și Orient. 32 ani experiență.',
+  url: 'https://dacoda.ro/servicii/transport-rutier',
+  areaServed: [
+    'Germania',
+    'Franța',
+    'Italia',
+    'Spania',
+    'Olanda',
+    'Belgia',
+    'Polonia',
+    'Ungaria',
+    'Austria',
+    'Cehia',
+    'Bulgaria',
+    'Grecia',
+    'Ucraina',
+    'Kazakhstan',
+    'Georgia',
+    'Turcia',
+  ],
+  keywords: [
+    'transport rutier international',
+    'FTL transport Romania',
+    'LTL transport Romania',
+    'grupaj transport Europa',
+    'casa expeditii Romania',
+    'transport marfa Germania',
+  ],
+});
+
+const faqSchemaData = makeFaqSchema([
+  {
+    q: 'Care e diferența dintre FTL și LTL?',
+    a: 'FTL (Full Truck Load) înseamnă că închiriezi un camion întreg pentru marfa ta, chiar dacă nu îl umpli complet. LTL (Less Than Truck Load) înseamnă că marfa ta ocupă o parte din camion, împărțind costul transportului cu alți expeditori.',
+  },
+  {
+    q: 'Cât durează un transport România–Germania?',
+    a: 'Pe ruta București–München, transportul durează în medie 2–3 zile lucrătoare, în funcție de punctele exacte de încărcare și livrare.',
+  },
+  {
+    q: 'Organizați și transport pentru mărfuri speciale?',
+    a: 'Da — transport ADR (mărfuri periculoase), frigorific, agabaritic și pe umărașe. Fiecare tip de marfă are soluția lui.',
+  },
+]);
+
+const breadcrumbSchema = makeBreadcrumbSchema([
+  { name: 'Acasă', url: 'https://dacoda.ro' },
+  { name: 'Servicii', url: 'https://dacoda.ro/servicii' },
+  {
+    name: 'Transport Rutier',
+    url: 'https://dacoda.ro/servicii/transport-rutier',
+  },
+]);
+
 export default function TransportRutierPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            serviceSchema,
+            faqSchemaData,
+            breadcrumbSchema,
+          ]),
+        }}
+      />
+
       {/* Hero */}
       <section
-        className="relative"
+        className="relative overflow-hidden"
         style={{ backgroundColor: 'var(--dacoda-navy)' }}
       >
-        <div className="container px-4 py-16 lg:px-6 lg:py-24">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=75"
+            alt="Camion TIR transport rutier internațional"
+            fill
+            className="object-cover opacity-25"
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className="relative z-10 container px-4 py-16 lg:px-6 lg:py-24">
           <div className="mb-6">
             <Breadcrumb
               items={[

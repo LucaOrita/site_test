@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 
+import { DACODA_CONFIG, submitToFormspree } from '@/lib/config';
+
 const beneficii = [
   {
     icon: Wallet,
@@ -89,19 +91,19 @@ export default function TransportatoriPage() {
     e.preventDefault();
     setStatus('sending');
     try {
-      const res = await fetch(
-        `https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID ?? 'REPLACE_WITH_FORMSPREE_ID'}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            _subject: `Transportator nou — ${form.firma}`,
-            ...form,
-            tipuri: form.tipuri.join(', '),
-          }),
-        },
-      );
-      if (res.ok) {
+      const result = await submitToFormspree(DACODA_CONFIG.formspree.contact, {
+        _subject: `Partener nou: ${form.firma}`,
+        _replyto: form.email,
+        Firma: form.firma,
+        CUI: form.cui,
+        Contact: form.contact,
+        Telefon: form.phone,
+        Email: form.email,
+        'Tipuri transport': form.tipuri.join(', '),
+        Zone: form.zone,
+        Capacitate: form.capacitate,
+      });
+      if (result.ok) {
         setStatus('sent');
       } else {
         setStatus('error');

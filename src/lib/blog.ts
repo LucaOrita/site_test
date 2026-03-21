@@ -11,6 +11,8 @@ export type BlogPost = {
   category: string;
   date: string;
   readTime: string;
+  image?: string;
+  imageAlt?: string;
   content: string;
 };
 
@@ -33,6 +35,8 @@ export function getBlogBySlug(slug: string): BlogPost {
     category: data.category || 'General',
     date: data.date || '',
     readTime: data.readTime || '',
+    image: data.image || '',
+    imageAlt: data.imageAlt || '',
     content: content,
   };
 }

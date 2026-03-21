@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   AlertTriangle,
-  Check,
   Construction,
   Loader2,
   Plane,
@@ -27,6 +26,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { DACODA_CONFIG, submitToFormspree } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
 /* ─── Country list ─── */
@@ -160,8 +160,9 @@ interface Props {
 }
 
 export default function DacodaFormStandard({ defaultValues }: Props) {
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    'idle' | 'loading' | 'success' | 'error'
+  >('idle');
 
   const {
     register,
@@ -179,38 +180,66 @@ export default function DacodaFormStandard({ defaultValues }: Props) {
   });
 
   const flex = watch('flexibilitateData');
-  const emailVal = watch('email');
-  const telefonVal = watch('telefon');
 
   const onSubmit = async (data: FormData) => {
-    setSubmitting(true);
-    try {
-      const res = await fetch(
-        `https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID ?? 'REPLACE_WITH_FORMSPREE_ID'}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        },
-      );
-      if (res.ok) setSubmitted(true);
-    } finally {
-      setSubmitting(false);
-    }
+    setSubmitStatus('loading');
+
+    const result = await submitToFormspree(DACODA_CONFIG.formspree.cerere, {
+      _subject: `Transport ${data.taraOrigine} → ${data.taraDestinatie} | ${data.tipTransport}`,
+      _replyto: data.email,
+      Origine: `${data.taraOrigine}, ${data.orasOrigine}, ${data.adresaOrigine}`,
+      Destinatie: `${data.taraDestinatie}, ${data.orasDestinatie}, ${data.adresaDestinatie}`,
+      Tonaj: data.tonaj,
+      'Tip transport': data.tipTransport,
+      Marfa: data.descriereMarfa,
+      'Cerinte speciale': data.cerinteSpeciale ?? '—',
+      'Data incarcare': data.dataIncarcare,
+      'Data livrare': data.dataLivrare ?? 'Flexibil',
+      Buget: data.buget
+        ? `${data.buget} ${data.moneda ?? 'EUR'}`
+        : 'Nespecificat',
+      Nume: data.numePrenume,
+      Firma: data.firma,
+      Telefon: data.telefon,
+      Email: data.email,
+    });
+
+    setSubmitStatus(result.ok ? 'success' : 'error');
   };
 
-  if (submitted) {
+  if (submitStatus === 'success') {
     return (
-      <div className="rounded-lg border border-green-200 bg-green-50 p-8 text-center">
-        <Check className="mx-auto mb-3 h-10 w-10 text-green-600" />
-        <p className="text-dacoda-navy text-lg font-bold">
-          Cererea ta a fost trimisă cu succes!
+      <div className="rounded-2xl border border-green-200 bg-green-50 p-10 text-center">
+        <div className="mb-4 text-5xl">✅</div>
+        <h3 className="mb-2 text-2xl font-bold text-green-800">
+          Cererea a fost trimisă!
+        </h3>
+        <p className="text-green-700">
+          Te vom contacta în cel mult 2 ore în zilele lucrătoare.
         </p>
-        <p className="text-dacoda-gray mt-2 text-sm">
-          Te vom contacta la <strong>{emailVal || 'email-ul indicat'}</strong>{' '}
-          sau <strong>{telefonVal || 'telefonul indicat'}</strong> în cel mult 2
-          ore în zilele lucrătoare.
+        <p className="mt-4 text-sm text-green-600">
+          Urgent?{' '}
+          <a href="tel:+40785225446" className="font-semibold underline">
+            +40 785 225 446
+          </a>
         </p>
+      </div>
+    );
+  }
+
+  if (submitStatus === 'error') {
+    return (
+      <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
+        <p className="mb-3 font-semibold text-red-800">Ceva nu a funcționat.</p>
+        <p className="mb-4 text-sm text-red-700">Contactează-ne direct:</p>
+        <p className="font-bold text-red-800">📞 +40 785 225 446</p>
+        <p className="font-bold text-red-800">✉️ oritaluca@gmail.com</p>
+        <button
+          onClick={() => setSubmitStatus('idle')}
+          className="mt-4 text-sm text-red-600 underline"
+        >
+          Încearcă din nou
+        </button>
       </div>
     );
   }
@@ -619,11 +648,13 @@ export default function DacodaFormStandard({ defaultValues }: Props) {
       {/* Submit */}
       <button
         type="submit"
-        disabled={submitting}
-        className="bg-dacoda-orange hover:bg-dacoda-orange-dark flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold text-white transition-colors disabled:opacity-60"
+        disabled={submitStatus === 'loading'}
+        className="bg-dacoda-orange hover:bg-dacoda-orange-dark flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
-        {submitting ? 'Se trimite...' : 'Trimite cererea'}
+        {submitStatus === 'loading' && (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        )}
+        {submitStatus === 'loading' ? 'Se trimite...' : 'Trimite cererea'}
       </button>
     </form>
   );

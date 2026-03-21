@@ -76,21 +76,102 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'DACODA SRL',
-  description:
-    'Casă de expediții cu tradiție din 1993. Transport rutier internațional, ADR, frigorific și agabaritic.',
-  url: 'https://dacoda.ro',
-  telephone: '+40785225446',
-  email: 'comercial@dacoda.ro',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Timișoara',
-    addressCountry: 'RO',
-  },
-  foundingDate: '1993',
-  areaServed: 'Europe',
-  serviceType: 'Freight forwarding',
+  '@graph': [
+    {
+      '@type': ['LocalBusiness', 'FreightForwarder'],
+      '@id': 'https://dacoda.ro/#organization',
+      name: 'DACODA SRL',
+      alternateName: 'Dacoda Expediții',
+      description:
+        'Casă de expediții fondată în 1993. Transport rutier internațional FTL/LTL/grupaj, ADR, frigorific, agabaritic, aerian și maritim. 32 ani experiență, 40+ țări.',
+      url: 'https://dacoda.ro',
+      telephone: '+40785225446',
+      email: 'comercial@dacoda.ro',
+      foundingDate: '1993',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Timișoara',
+        addressRegion: 'Timiș',
+        addressCountry: 'RO',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 45.7489,
+        longitude: 21.2087,
+      },
+      areaServed: [
+        { '@type': 'Continent', name: 'Europe' },
+        { '@type': 'Country', name: 'Germany' },
+        { '@type': 'Country', name: 'France' },
+        { '@type': 'Country', name: 'Italy' },
+        { '@type': 'Country', name: 'Spain' },
+        { '@type': 'Country', name: 'Netherlands' },
+        { '@type': 'Country', name: 'Poland' },
+        { '@type': 'Country', name: 'Hungary' },
+        { '@type': 'Country', name: 'Austria' },
+        { '@type': 'Country', name: 'Ukraine' },
+        { '@type': 'Country', name: 'Kazakhstan' },
+        { '@type': 'Country', name: 'Georgia' },
+        { '@type': 'Country', name: 'Turkey' },
+        { '@type': 'Country', name: 'China' },
+        { '@type': 'Country', name: 'India' },
+      ],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Servicii transport internațional',
+        itemListElement: [
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Transport Rutier Internațional FTL LTL',
+            },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Transport ADR Mărfuri Periculoase',
+            },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Transport Frigorific Temperatură Controlată',
+            },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Transport Agabaritic Mărfuri Supradimensionate',
+            },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'Transport Aerian Cargo' },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Transport Maritim Container',
+            },
+          },
+        ],
+      },
+      sameAs: [],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://dacoda.ro/#website',
+      url: 'https://dacoda.ro',
+      name: 'DACODA SRL',
+      publisher: { '@id': 'https://dacoda.ro/#organization' },
+      inLanguage: 'ro-RO',
+    },
+  ],
 };
 
 export default function RootLayout({

@@ -1,5 +1,6 @@
 import { ArrowRight, Check } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import DacodaServiceCta from '@/components/sections/dacoda-service-cta';
@@ -10,6 +11,11 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import Breadcrumb from '@/components/ui/breadcrumb';
+import {
+  makeBreadcrumbSchema,
+  makeFaqSchema,
+  makeServiceSchema,
+} from '@/lib/schema';
 
 export const metadata: Metadata = {
   title:
@@ -25,27 +31,30 @@ const criteria = [
   { emoji: '🔄', text: 'Formă sau echilibru neobișnuit' },
 ];
 
-const caseStudies = [
+const galleryPhotos = [
   {
-    route: 'AT → BG',
-    routeFull: 'Austria → Bulgaria',
-    dimensions: '11.7 × 2.5 × 3.1 m',
-    weight: '15 tone',
-    client: 'GOWEIL Maschinenbau GmbH',
+    src: '/images/agabaritic/2.jpg',
+    alt: 'Transport agabaritic utilaj agricol DACODA',
   },
   {
-    route: 'DE → RO',
-    routeFull: 'Germania → România',
-    dimensions: '13.7 × 2.55 × 3.2 m (depășit)',
-    weight: '17 tone',
-    client: 'FARMTECH',
+    src: '/images/agabaritic/3.jpg',
+    alt: 'Lowboy transport marfă supradimensionată DACODA',
   },
   {
-    route: 'BE → RO',
-    routeFull: 'Belgia → România',
-    dimensions: '11 × 2.85 × 3.4 m (depășit)',
-    weight: '32 tone',
-    client: 'REMAT MARAMURES',
+    src: '/images/agabaritic/4.jpg',
+    alt: 'Convoi excepțional transport agabaritic România',
+  },
+  {
+    src: '/images/agabaritic/5.jpg',
+    alt: 'Transport utilaje grele Europa DACODA SRL',
+  },
+  {
+    src: '/images/agabaritic/6.jpg',
+    alt: 'Marfă agabaritică pe platformă specializată',
+  },
+  {
+    src: '/images/agabaritic/7.jpg',
+    alt: 'Transport excepțional utilaje industriale DACODA',
   },
 ];
 
@@ -74,9 +83,61 @@ const faqs = [
   },
 ];
 
+const serviceSchema = makeServiceSchema({
+  name: 'Transport Agabaritic Mărfuri Supradimensionate',
+  description:
+    'Transport agabaritic mărfuri grele și supradimensionate în Europa. Autorizații speciale, escortă, ancorare profesională. Experiență reală: transporturi până la 32 tone gabarit depășit.',
+  url: 'https://dacoda.ro/servicii/transport-agabaritic',
+  areaServed: [
+    'Europa',
+    'Germania',
+    'Austria',
+    'Belgia',
+    'Bulgaria',
+    'România',
+  ],
+  keywords: [
+    'transport agabaritic',
+    'transport marfa supradimensionata',
+    'transport utilaje grele',
+    'transport exceptional Romania',
+  ],
+});
+
+const faqSchemaData = makeFaqSchema([
+  {
+    q: 'Cât durează obținerea autorizațiilor?',
+    a: 'Depinde de rută și de țările tranzitate. În general 3–7 zile lucrătoare. Planificați din timp!',
+  },
+  {
+    q: 'Care e greutatea maximă transportabilă?',
+    a: 'Nu există o limită fixă — depinde de autorizațiile obținute. Am transportat mărfuri de până la 32 tone cu gabarit depășit.',
+  },
+]);
+
+const breadcrumbSchema = makeBreadcrumbSchema([
+  { name: 'Acasă', url: 'https://dacoda.ro' },
+  { name: 'Servicii', url: 'https://dacoda.ro/servicii' },
+  {
+    name: 'Transport Agabaritic',
+    url: 'https://dacoda.ro/servicii/transport-agabaritic',
+  },
+]);
+
 export default function TransportAgabariticPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            serviceSchema,
+            faqSchemaData,
+            breadcrumbSchema,
+          ]),
+        }}
+      />
+
       {/* Hero */}
       <section
         className="relative"
@@ -157,47 +218,133 @@ export default function TransportAgabariticPage() {
           </h2>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {caseStudies.map((cs) => (
-              <div
-                key={cs.client}
-                className="overflow-hidden rounded-xl bg-white shadow-sm"
-              >
-                {/* Placeholder image */}
-                <div className="relative flex h-48 items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300">
-                  <div className="text-center">
-                    <p className="text-lg font-bold text-gray-500">
-                      {cs.route}
-                    </p>
-                    <p className="text-xs text-gray-400">
-                      Imagine transport agabaritic
-                    </p>
-                  </div>
-                  <span className="bg-dacoda-orange absolute top-3 left-3 rounded-full px-2.5 py-0.5 text-xs font-semibold text-white">
-                    Caz real
-                  </span>
-                </div>
-
-                <div className="p-5">
-                  <h3 className="text-dacoda-navy mb-3 text-base font-bold">
-                    {cs.routeFull}
-                  </h3>
-                  <div className="text-dacoda-gray space-y-1 text-sm">
-                    <p>
-                      <strong className="text-dacoda-navy">Gabarit:</strong>{' '}
-                      {cs.dimensions}
-                    </p>
-                    <p>
-                      <strong className="text-dacoda-navy">Greutate:</strong>{' '}
-                      {cs.weight}
-                    </p>
-                    <p>
-                      <strong className="text-dacoda-navy">Client:</strong>{' '}
-                      {cs.client}
-                    </p>
-                  </div>
+            {/* CARD 1 — AT→BG / GOWEIL */}
+            <div className="overflow-hidden rounded-xl border border-gray-200">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+                <Image
+                  src="/images/agabaritic/1.jpg"
+                  alt="Transport agabaritic utilaj agricol pe lowboy — ruta Austria Bulgaria DACODA SRL"
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: 'center 30%' }}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+                <div className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                  AT &rarr; BG
                 </div>
               </div>
-            ))}
+              <div className="p-5">
+                <p
+                  className="mb-1 text-xs font-medium tracking-wider uppercase"
+                  style={{ color: 'var(--dacoda-orange)' }}
+                >
+                  Caz real
+                </p>
+                <h3
+                  className="mb-3 text-lg font-semibold"
+                  style={{ color: 'var(--dacoda-navy)' }}
+                >
+                  Austria &rarr; Bulgaria
+                </h3>
+                <div className="space-y-1 text-sm text-gray-600">
+                  <p>
+                    <strong>Dimensiuni:</strong> 11.7 &times; 2.5 &times; 3.1 m
+                  </p>
+                  <p>
+                    <strong>Greutate:</strong> 15 tone
+                  </p>
+                  <p>
+                    <strong>Client:</strong> GOWEIL Maschinenbau GmbH
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* CARD 2 — DE→RO / FARMTECH */}
+            <div className="overflow-hidden rounded-xl border border-gray-200">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+                <Image
+                  src="/images/agabaritic/11Lili.jpg"
+                  alt="Transport agabaritic convoi excepțional Volvo pe lowboy — ruta Germania România DACODA SRL"
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: 'center 25%' }}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+                <div className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                  DE &rarr; RO
+                </div>
+              </div>
+              <div className="p-5">
+                <p
+                  className="mb-1 text-xs font-medium tracking-wider uppercase"
+                  style={{ color: 'var(--dacoda-orange)' }}
+                >
+                  Caz real
+                </p>
+                <h3
+                  className="mb-3 text-lg font-semibold"
+                  style={{ color: 'var(--dacoda-navy)' }}
+                >
+                  Germania &rarr; Rom&acirc;nia
+                </h3>
+                <div className="space-y-1 text-sm text-gray-600">
+                  <p>
+                    <strong>Dimensiuni:</strong> 13.7 &times; 2.55 &times; 3.2 m
+                    (dep&#259;&#537;it)
+                  </p>
+                  <p>
+                    <strong>Greutate:</strong> 17 tone
+                  </p>
+                  <p>
+                    <strong>Client:</strong> FARMTECH
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* CARD 3 — BE→RO / REMAT */}
+            <div className="overflow-hidden rounded-xl border border-gray-200">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+                <Image
+                  src="/images/agabaritic/9Lili.jpg"
+                  alt="Transport agabaritic marfă grea supradimensionată — ruta Belgia România DACODA SRL"
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: 'center 30%' }}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+                <div className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                  BE &rarr; RO
+                </div>
+              </div>
+              <div className="p-5">
+                <p
+                  className="mb-1 text-xs font-medium tracking-wider uppercase"
+                  style={{ color: 'var(--dacoda-orange)' }}
+                >
+                  Caz real
+                </p>
+                <h3
+                  className="mb-3 text-lg font-semibold"
+                  style={{ color: 'var(--dacoda-navy)' }}
+                >
+                  Belgia &rarr; Rom&acirc;nia
+                </h3>
+                <div className="space-y-1 text-sm text-gray-600">
+                  <p>
+                    <strong>Dimensiuni:</strong> 11 &times; 2.85 &times; 3.4 m
+                    (dep&#259;&#537;it)
+                  </p>
+                  <p>
+                    <strong>Greutate:</strong> 32 tone
+                  </p>
+                  <p>
+                    <strong>Client:</strong> REMAT MARAMURES
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -218,6 +365,43 @@ export default function TransportAgabariticPage() {
                 <span className="text-dacoda-navy text-base font-medium">
                   {item}
                 </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Galerie foto din transporturi reale */}
+      <section
+        className="py-16"
+        style={{ backgroundColor: 'var(--dacoda-light)' }}
+      >
+        <div className="container px-4 lg:px-6">
+          <h2
+            className="mb-3 text-center text-2xl font-bold"
+            style={{ color: 'var(--dacoda-navy)' }}
+          >
+            Din transporturile noastre
+          </h2>
+          <p className="mb-10 text-center text-gray-500">
+            Fotografii reale din transporturile agabaritice organizate de DACODA
+            SRL
+          </p>
+
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+            {galleryPhotos.map((photo, i) => (
+              <div
+                key={i}
+                className="relative aspect-[3/2] overflow-hidden rounded-lg"
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  className="object-cover transition-transform duration-300 hover:scale-105"
+                  style={{ objectPosition: 'center 30%' }}
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                />
               </div>
             ))}
           </div>

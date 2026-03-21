@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export interface BlogCardProps {
@@ -8,6 +9,8 @@ export interface BlogCardProps {
   category: string;
   date: string;
   readTime: string;
+  image?: string;
+  imageAlt?: string;
   imagePlaceholderColor?: string;
 }
 
@@ -25,6 +28,8 @@ export default function BlogCard({
   category,
   date,
   readTime,
+  image,
+  imageAlt,
   imagePlaceholderColor = '#E8931A',
 }: BlogCardProps) {
   const colorClass = categoryColors[category] || 'bg-gray-100 text-gray-600';
@@ -42,13 +47,25 @@ export default function BlogCard({
       href={`/blog/${slug}`}
       className="group flex flex-col overflow-hidden rounded-lg border border-gray-100 bg-white transition-shadow hover:shadow-md"
     >
-      {/* Image placeholder */}
-      <div
-        className="flex aspect-video items-center justify-center"
-        style={{ backgroundColor: `${imagePlaceholderColor}15` }}
-      >
-        <span className="text-sm text-gray-400">Imagine articol</span>
-      </div>
+      {/* Article image */}
+      {image ? (
+        <div className="relative aspect-video overflow-hidden">
+          <Image
+            src={image}
+            alt={imageAlt || title}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+      ) : (
+        <div
+          className="flex aspect-video items-center justify-center"
+          style={{ backgroundColor: `${imagePlaceholderColor}15` }}
+        >
+          <span className="text-sm text-gray-400">Imagine articol</span>
+        </div>
+      )}
 
       <div className="flex flex-1 flex-col p-5">
         <span

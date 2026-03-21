@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import DacodaServiceCta from '@/components/sections/dacoda-service-cta';
@@ -10,6 +11,11 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import Breadcrumb from '@/components/ui/breadcrumb';
+import {
+  makeBreadcrumbSchema,
+  makeFaqSchema,
+  makeServiceSchema,
+} from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: 'Transport Frigorific — Temperatură Controlată | DACODA SRL',
@@ -73,15 +79,70 @@ const faqs = [
   },
 ];
 
+const serviceSchema = makeServiceSchema({
+  name: 'Transport Frigorific Temperatură Controlată',
+  description:
+    'Transport marfă la temperatură controlată -25°C până la +15°C. Agregate certificate, diagrame temperatură incluse, 2 șoferi per cursă lungă.',
+  url: 'https://dacoda.ro/servicii/transport-frigorific',
+  areaServed: ['Europa', 'România', 'Germania', 'Italia', 'Spania'],
+  keywords: [
+    'transport frigorific',
+    'transport temperaturi controlate',
+    'transport produse perisabile',
+    'transport farma',
+  ],
+});
+
+const faqSchemaData = makeFaqSchema([
+  {
+    q: 'Ce temperaturi puteți menține?',
+    a: 'Intervalul standard: -25°C până la +15°C, cu setare precisă conform cerințelor tale.',
+  },
+  {
+    q: 'Primiți diagrama de temperatură după transport?',
+    a: 'Da, diagrama completă a transportului este inclusă în documentație, fără costuri suplimentare.',
+  },
+]);
+
+const breadcrumbSchema = makeBreadcrumbSchema([
+  { name: 'Acasă', url: 'https://dacoda.ro' },
+  { name: 'Servicii', url: 'https://dacoda.ro/servicii' },
+  {
+    name: 'Transport Frigorific',
+    url: 'https://dacoda.ro/servicii/transport-frigorific',
+  },
+]);
+
 export default function TransportFrigorificPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            serviceSchema,
+            faqSchemaData,
+            breadcrumbSchema,
+          ]),
+        }}
+      />
+
       {/* Hero */}
       <section
-        className="relative"
+        className="relative overflow-hidden"
         style={{ backgroundColor: 'var(--dacoda-navy)' }}
       >
-        <div className="container px-4 py-16 lg:px-6 lg:py-24">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1625504615927-c6336b4b44e9?w=1200&q=75"
+            alt="Camion frigorific transport temperatură controlată"
+            fill
+            className="object-cover opacity-25"
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className="relative z-10 container px-4 py-16 lg:px-6 lg:py-24">
           <div className="mb-6">
             <Breadcrumb
               items={[

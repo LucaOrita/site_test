@@ -3,6 +3,8 @@
 import { ArrowRight, Clock, Loader2, Mail, MapPin, Phone } from 'lucide-react';
 import { useState } from 'react';
 
+import { DACODA_CONFIG, submitToFormspree } from '@/lib/config';
+
 const SUBJECTS = [
   'Cerere ofertă',
   'Informații transport',
@@ -34,18 +36,16 @@ export default function ContactPage() {
     e.preventDefault();
     setStatus('sending');
     try {
-      const res = await fetch(
-        `https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID ?? 'REPLACE_WITH_FORMSPREE_ID'}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            _subject: `Contact — ${form.subject}`,
-            ...form,
-          }),
-        },
-      );
-      if (res.ok) {
+      const result = await submitToFormspree(DACODA_CONFIG.formspree.contact, {
+        _subject: `Contact: ${form.subject} — ${form.name}`,
+        _replyto: form.email,
+        Nume: form.name,
+        Email: form.email,
+        Telefon: form.phone,
+        Subiect: form.subject,
+        Mesaj: form.message,
+      });
+      if (result.ok) {
         setStatus('sent');
         setForm({ name: '', email: '', phone: '', subject: '', message: '' });
       } else {

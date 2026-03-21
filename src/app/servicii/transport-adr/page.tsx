@@ -1,5 +1,6 @@
 import { AlertTriangle, ArrowRight, FileText } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import DacodaServiceCta from '@/components/sections/dacoda-service-cta';
@@ -10,6 +11,11 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import Breadcrumb from '@/components/ui/breadcrumb';
+import {
+  makeBreadcrumbSchema,
+  makeFaqSchema,
+  makeServiceSchema,
+} from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: 'Transport ADR — Mărfuri Periculoase | DACODA SRL',
@@ -71,15 +77,67 @@ const faqs = [
   },
 ];
 
+const serviceSchema = makeServiceSchema({
+  name: 'Transport ADR Mărfuri Periculoase',
+  description:
+    'Transport mărfuri periculoase ADR clasele 3-6, 8, 9 în România și Europa. Documentație completă, vehicule echipate, șoferi certificați ADR.',
+  url: 'https://dacoda.ro/servicii/transport-adr',
+  areaServed: ['România', 'Germania', 'Italia', 'Franța', 'Europa'],
+  keywords: [
+    'transport ADR',
+    'marfuri periculoase transport',
+    'ADR clasa 3',
+    'transport substante chimice',
+  ],
+});
+
+const faqSchemaData = makeFaqSchema([
+  {
+    q: 'Ce clase ADR transportați?',
+    a: 'DACODA transportă clasele 3 (lichide inflamabile), 4, 5, 6, 8 (corozive) și 9. Clasele 1 (explozivi) și 7 (radioactive) necesită autorizații speciale.',
+  },
+  {
+    q: 'Ce documente trebuie să furnizez?',
+    a: 'Fișa de siguranță (SDS) și o descriere clară a mărfii. Restul documentației ADR o pregătim noi.',
+  },
+]);
+
+const breadcrumbSchema = makeBreadcrumbSchema([
+  { name: 'Acasă', url: 'https://dacoda.ro' },
+  { name: 'Servicii', url: 'https://dacoda.ro/servicii' },
+  { name: 'Transport ADR', url: 'https://dacoda.ro/servicii/transport-adr' },
+]);
+
 export default function TransportAdrPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            serviceSchema,
+            faqSchemaData,
+            breadcrumbSchema,
+          ]),
+        }}
+      />
+
       {/* Hero */}
       <section
-        className="relative"
+        className="relative overflow-hidden"
         style={{ backgroundColor: 'var(--dacoda-navy)' }}
       >
-        <div className="container px-4 py-16 lg:px-6 lg:py-24">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=75"
+            alt="Transport ADR mărfuri periculoase"
+            fill
+            className="object-cover opacity-25"
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className="relative z-10 container px-4 py-16 lg:px-6 lg:py-24">
           <div className="mb-6">
             <Breadcrumb
               items={[

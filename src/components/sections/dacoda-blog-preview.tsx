@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const articles = [
@@ -8,7 +9,9 @@ const articles = [
     summary:
       'Documentul de transport internațional explicat pas cu pas pentru expeditori și transportatori.',
     href: '/blog/ce-este-cmr',
-    color: 'bg-dacoda-orange/10',
+    image:
+      'https://images.unsplash.com/photo-1568096889942-6eedde686635?w=800&q=75',
+    imageAlt: 'Document CMR transport internațional rutier',
   },
   {
     category: 'Rute',
@@ -16,7 +19,9 @@ const articles = [
     summary:
       'Documente, timpi de tranzit, puncte vamale și sfaturi practice pentru cel mai circulat coridor rutier.',
     href: '/blog/transport-romania-germania',
-    color: 'bg-blue-50',
+    image:
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=75',
+    imageAlt: 'Autostradă transport România Germania',
   },
   {
     category: 'Transport special',
@@ -24,7 +29,9 @@ const articles = [
     summary:
       'De la autorizații și escortă până la alegerea vehiculului potrivit — tot procesul explicat.',
     href: '/blog/transport-agabaritic',
-    color: 'bg-emerald-50',
+    image:
+      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=75',
+    imageAlt: 'Transport agabaritic mărfuri supradimensionate',
   },
 ];
 
@@ -54,13 +61,15 @@ export default function DacodaBlogPreview() {
               href={article.href}
               className="group flex flex-col overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md"
             >
-              {/* Image placeholder */}
-              <div
-                className={`${article.color} flex aspect-video items-center justify-center`}
-              >
-                <span className="text-dacoda-gray text-sm">
-                  Imagine articol
-                </span>
+              {/* Article image */}
+              <div className="relative aspect-video overflow-hidden">
+                <Image
+                  src={article.image}
+                  alt={article.imageAlt}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
               </div>
 
               <div className="flex flex-1 flex-col p-5">

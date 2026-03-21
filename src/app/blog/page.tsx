@@ -19,6 +19,8 @@ export default function BlogPage() {
     category: p.category,
     date: p.date,
     readTime: p.readTime,
+    image: p.image,
+    imageAlt: p.imageAlt,
   }));
 
   return (

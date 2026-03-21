@@ -4,6 +4,7 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 
 import BlogCard from '@/components/ui/blog-card';
 import { getBlogBySlug, getBlogSlugs, getRelatedPosts } from '@/lib/blog';
+import { makeArticleSchema } from '@/lib/schema';
 
 export async function generateStaticParams() {
   const slugs = getBlogSlugs();
@@ -47,8 +48,20 @@ export default async function BlogPostPage({
       }).format(new Date(post.date))
     : '';
 
+  const articleSchema = makeArticleSchema({
+    title: post.title,
+    description: post.excerpt,
+    url: `https://dacoda.ro/blog/${slug}`,
+    datePublished: post.date,
+  });
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+
       {/* Article header */}
       <section style={{ backgroundColor: 'var(--dacoda-navy)' }}>
         <div className="container px-4 py-12 lg:px-6 lg:py-20">
@@ -125,6 +138,8 @@ export default async function BlogPostPage({
                   title={p.title}
                   excerpt={p.excerpt}
                   category={p.category}
+                  image={p.image}
+                  imageAlt={p.imageAlt}
                   date={p.date}
                   readTime={p.readTime}
                 />
