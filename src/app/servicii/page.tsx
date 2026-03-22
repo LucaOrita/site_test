@@ -9,6 +9,7 @@ import {
   Truck,
 } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -37,6 +38,9 @@ export const metadata: Metadata = {
 const services = [
   {
     icon: Truck,
+    image:
+      'https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=400&q=70',
+    imageAlt: 'Camion TIR transport rutier internațional',
     title: 'Transport Rutier',
     badge: 'Core business',
     text: 'FTL, LTL și grupaj intern și internațional. Acoperim toată Europa, CSI și Orientul Mijlociu.',
@@ -46,18 +50,26 @@ const services = [
   },
   {
     icon: AlertTriangle,
+    image:
+      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=70',
+    imageAlt: 'Transport ADR mărfuri periculoase',
     title: 'Transport ADR',
     text: 'Mărfuri periculoase clasele 3–6, 8, 9. Documentație completă, șoferi certificați ADR.',
     href: '/servicii/transport-adr',
   },
   {
     icon: Snowflake,
+    image:
+      'https://images.unsplash.com/photo-1625504615927-c6336b4b44e9?w=400&q=70',
+    imageAlt: 'Transport frigorific temperatură controlată',
     title: 'Transport Frigorific',
     text: 'Temperatură controlată, agregate certificate, 2 șoferi per cursă pentru distanțe lungi.',
     href: '/servicii/transport-frigorific',
   },
   {
     icon: Construction,
+    image: '/images/agabaritic/7.jpg',
+    imageAlt: 'Transport agabaritic mărfuri supradimensionate DACODA',
     title: 'Transport Agabaritic',
     text: 'Mărfuri grele și supradimensionate. Ancore, escortă, autorizații speciale.',
     href: '/servicii/transport-agabaritic',
@@ -65,6 +77,9 @@ const services = [
   {
     icon: null,
     icons: [Plane, Ship],
+    image:
+      'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&q=70',
+    imageAlt: 'Transport aerian cargo internațional',
     title: 'Aerian & Maritim',
     text: 'Cargo internațional pentru Asia și destinații globale prin parteneri selectați.',
     href: '/servicii/aerian-maritim',
@@ -91,8 +106,8 @@ export default function ServiciiPage() {
             Serviciile noastre
           </h1>
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            Transport rutier, ADR, frigorific, agabaritic și cargo internațional.
-            Soluții complete pentru orice tip de marfă.
+            Transport rutier, ADR, frigorific, agabaritic și cargo
+            internațional. Soluții complete pentru orice tip de marfă.
           </p>
         </div>
       </section>
@@ -105,60 +120,75 @@ export default function ServiciiPage() {
               <Link
                 key={service.title}
                 href={service.href}
-                className={`group flex flex-col rounded-xl border bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-lg ${
+                className={`group flex flex-col overflow-hidden rounded-xl border bg-white transition-all hover:-translate-y-1 hover:shadow-lg ${
                   service.featured
                     ? 'border-dacoda-orange border-t-[3px] md:col-span-2'
                     : 'border-t-[3px] border-gray-100 border-t-[var(--dacoda-orange)]'
                 }`}
               >
-                {/* Icon */}
-                <div className="mb-4 flex items-center gap-2">
-                  {service.icons ? (
-                    service.icons.map((Icon, i) => (
-                      <Icon key={i} className="text-dacoda-orange h-7 w-7" />
-                    ))
-                  ) : service.icon ? (
-                    <service.icon className="text-dacoda-orange h-8 w-8" />
-                  ) : null}
-                </div>
-
-                {/* Title + Badge */}
-                <div className="mb-2 flex items-center gap-3">
-                  <h3 className="text-dacoda-navy text-xl font-bold">
-                    {service.title}
-                  </h3>
-                  {service.badge && (
-                    <span className="bg-dacoda-orange/10 text-dacoda-orange rounded-full px-2.5 py-0.5 text-xs font-semibold">
-                      {service.badge}
-                    </span>
-                  )}
-                </div>
-
-                {/* Text */}
-                <p className="text-dacoda-gray mb-4 text-sm leading-relaxed">
-                  {service.text}
-                </p>
-
-                {/* Bullets (featured only) */}
-                {service.bullets && (
-                  <div className="mb-4 grid grid-cols-2 gap-2">
-                    {service.bullets.map((b) => (
-                      <span
-                        key={b}
-                        className="text-dacoda-navy flex items-center gap-1.5 text-sm"
-                      >
-                        <Check className="text-dacoda-orange h-4 w-4 shrink-0" />
-                        {b}
-                      </span>
-                    ))}
+                {/* Card image */}
+                {service.image && (
+                  <div className="relative h-36 w-full overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.imageAlt || service.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 20vw"
+                    />
                   </div>
                 )}
 
-                {/* CTA */}
-                <span className="text-dacoda-orange mt-auto inline-flex items-center gap-1 text-sm font-medium">
-                  Află mai mult
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                </span>
+                <div className="p-6">
+                  {/* Icon */}
+                  <div className="mb-4 flex items-center gap-2">
+                    {service.icons ? (
+                      service.icons.map((Icon, i) => (
+                        <Icon key={i} className="text-dacoda-orange h-7 w-7" />
+                      ))
+                    ) : service.icon ? (
+                      <service.icon className="text-dacoda-orange h-8 w-8" />
+                    ) : null}
+                  </div>
+
+                  {/* Title + Badge */}
+                  <div className="mb-2 flex items-center gap-3">
+                    <h3 className="text-dacoda-navy text-xl font-bold">
+                      {service.title}
+                    </h3>
+                    {service.badge && (
+                      <span className="bg-dacoda-orange/10 text-dacoda-orange rounded-full px-2.5 py-0.5 text-xs font-semibold">
+                        {service.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Text */}
+                  <p className="text-dacoda-gray mb-4 text-sm leading-relaxed">
+                    {service.text}
+                  </p>
+
+                  {/* Bullets (featured only) */}
+                  {service.bullets && (
+                    <div className="mb-4 grid grid-cols-2 gap-2">
+                      {service.bullets.map((b) => (
+                        <span
+                          key={b}
+                          className="text-dacoda-navy flex items-center gap-1.5 text-sm"
+                        >
+                          <Check className="text-dacoda-orange h-4 w-4 shrink-0" />
+                          {b}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* CTA */}
+                  <span className="text-dacoda-orange mt-auto inline-flex items-center gap-1 text-sm font-medium">
+                    Află mai mult
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

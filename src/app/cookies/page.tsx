@@ -40,8 +40,8 @@ export default function CookiesPage() {
             <h3>Cookie-uri esențiale</h3>
             <ul>
               <li>
-                <strong>dacoda-theme</strong>: Reține preferința de temă (light /
-                dark)
+                <strong>dacoda-theme</strong>: Reține preferința de temă (light
+                / dark)
               </li>
               <li>
                 <strong>cookies-accepted</strong>: Reține acordul pentru

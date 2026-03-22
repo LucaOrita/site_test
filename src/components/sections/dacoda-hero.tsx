@@ -81,8 +81,8 @@ export default function DacodaHero() {
           custom={2}
         >
           De 32 de ani organizăm transporturi sigure și predictibile în Europa,
-          CSI și Asia. Știm rutele, legislația și riscurile, ca să nu
-          trebuiești tu să le știi.
+          CSI și Asia. Știm rutele, legislația și riscurile, ca să nu trebuiești
+          tu să le știi.
         </motion.p>
 
         <motion.div

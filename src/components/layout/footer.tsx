@@ -1,4 +1,13 @@
-import { Clock, Facebook, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import {
+  Clock,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Star,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -72,10 +81,88 @@ export default function Footer() {
               >
                 <Facebook className="h-4 w-4" />
               </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="inline-flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-colors hover:bg-white/15"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a
+                href="https://g.page/dacoda-srl"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Google Reviews"
+                className="inline-flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-colors hover:bg-white/15"
+              >
+                <Star className="h-4 w-4" />
+              </a>
             </div>
           </div>
 
-          {/* Column 2 — Puncte de lucru */}
+          {/* Column 2 — Servicii */}
+          <div>
+            <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
+              Servicii
+            </h4>
+            <ul className="space-y-3">
+              {SERVICII.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="hover:text-dacoda-orange text-sm text-gray-400 transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3 — Companie */}
+          <div>
+            <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
+              Companie
+            </h4>
+            <ul className="space-y-3">
+              {COMPANIE.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="hover:text-dacoda-orange text-sm text-gray-400 transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4 — Legal */}
+          <div>
+            <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
+              Legal
+            </h4>
+            <ul className="space-y-3">
+              {LEGAL.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="hover:text-dacoda-orange text-sm text-gray-400 transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+              <li className="text-sm text-gray-400">
+                Licență intermediere transport
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 5 — Puncte de lucru (rightmost) */}
           <div className="space-y-5">
             <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
               Puncte de lucru
@@ -146,66 +233,6 @@ export default function Footer() {
             </div>
 
             <p className="text-xs text-white/40">CUI: 4989577</p>
-          </div>
-
-          {/* Column 3 — Servicii */}
-          <div>
-            <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
-              Servicii
-            </h4>
-            <ul className="space-y-3">
-              {SERVICII.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="hover:text-dacoda-orange text-sm text-gray-400 transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4 — Companie */}
-          <div>
-            <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
-              Companie
-            </h4>
-            <ul className="space-y-3">
-              {COMPANIE.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="hover:text-dacoda-orange text-sm text-gray-400 transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 5 — Legal */}
-          <div>
-            <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
-              Legal
-            </h4>
-            <ul className="space-y-3">
-              {LEGAL.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="hover:text-dacoda-orange text-sm text-gray-400 transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-              <li className="text-sm text-gray-400">
-                Licență intermediere transport
-              </li>
-            </ul>
           </div>
         </div>
 

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import DacodaBlogPreview from '@/components/sections/dacoda-blog-preview';
 import DacodaCta from '@/components/sections/dacoda-cta';
 import DacodaHero from '@/components/sections/dacoda-hero';
+import DacodaPartners from '@/components/sections/dacoda-partners';
 import DacodaServices from '@/components/sections/dacoda-services';
 import DacodaStats from '@/components/sections/dacoda-stats';
 import DacodaTestimonials from '@/components/sections/dacoda-testimonials';
@@ -49,6 +50,7 @@ export default function Home() {
       <DacodaServices />
       <DacodaStats />
       <DacodaTestimonials />
+      <DacodaPartners />
       <DacodaBlogPreview />
       <DacodaCta />
     </>

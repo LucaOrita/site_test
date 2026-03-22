@@ -9,6 +9,7 @@ import {
   Package,
   Wallet,
 } from 'lucide-react';
+import Image from 'next/image';
 import { useState } from 'react';
 
 import { DACODA_CONFIG, submitToFormspree } from '@/lib/config';
@@ -126,7 +127,17 @@ export default function TransportatoriClient() {
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M0 0l60 60M60 0L0 60'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       >
-        <div className="container px-4 pt-32 pb-16 text-center lg:px-6 lg:pt-40 lg:pb-24">
+        {/* Background image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/agabaritic/4.jpg"
+            alt="Transport agabaritic camion partener DACODA SRL"
+            fill
+            className="object-cover opacity-20"
+            sizes="100vw"
+          />
+        </div>
+        <div className="relative z-10 container px-4 pt-32 pb-16 text-center lg:px-6 lg:pt-40 lg:pb-24">
           <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
             Devino Transportator Partener
           </h1>

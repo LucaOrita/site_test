@@ -73,12 +73,30 @@ export default function DacodaTestimonials() {
 
                     <div className="bg-dacoda-orange mt-4 h-0.5 w-8" />
 
-                    <p className="text-dacoda-navy mt-3 text-sm font-medium">
-                      {t.name}
-                    </p>
-                    {t.location && (
-                      <p className="text-dacoda-gray text-xs">{t.location}</p>
-                    )}
+                    {/* Avatar + name */}
+                    <div className="mt-4 flex items-center gap-3">
+                      <div
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+                        style={{ backgroundColor: 'var(--dacoda-navy)' }}
+                      >
+                        {t.name
+                          .split(' ')
+                          .map((n) => n[0])
+                          .join('')
+                          .substring(0, 2)}
+                      </div>
+                      <div>
+                        <p
+                          className="text-sm font-semibold"
+                          style={{ color: 'var(--dacoda-navy)' }}
+                        >
+                          {t.name}
+                        </p>
+                        {t.location && (
+                          <p className="text-xs text-gray-400">{t.location}</p>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </CarouselItem>
               ))}

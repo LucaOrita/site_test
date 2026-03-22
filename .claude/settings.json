@@ -31,7 +31,9 @@
       "Bash(find 'c:\\\\Users\\\\orita\\\\OneDrive\\\\Desktop\\\\Dacoda Site\\\\site_test' -name favicon.ico -o -name icon* -o -name apple-icon*)",
       "Bash(find /c/Users/orita/Downloads -iname *roata* -o -iname *wheel* -o -iname *dacoda*icon* -o -iname *dacoda*roata*)",
       "Bash(find /c/Users/orita/OneDrive/Desktop -iname *roata*)",
-      "Bash(grep -v '//')"
+      "Bash(grep -v '//')",
+      "Bash(C:/Users/orita/AppData/Local/Programs/Python/Python39/python.exe:*)",
+      "Bash(pnpm run:*)"
     ],
     "additionalDirectories": [
       "c:\\Users\\orita\\Downloads\\Mica vectorizare logo Dacoda"

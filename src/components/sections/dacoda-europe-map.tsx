@@ -2,13 +2,8 @@
 
 import { ArrowRight, X } from 'lucide-react';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  ZoomableGroup,
-} from 'react-simple-maps';
+import { useState } from 'react';
+import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 
 // Natural Earth TopoJSON — world countries, hosted on CDN
 const GEO_URL =
@@ -359,14 +354,11 @@ const DEFAULT_COLOR = '#d1d5db';
 export default function DacodaEuropeMap() {
   const [selected, setSelected] = useState<string | null>(null);
 
-  const getColor = useCallback(
-    (code: string | undefined, isHovered: boolean) => {
-      if (!code || !COUNTRY_DATA[code]) return DEFAULT_COLOR;
-      const zone = COUNTRY_DATA[code].zone;
-      return isHovered ? ZONE_COLORS[zone].hover : ZONE_COLORS[zone].base;
-    },
-    [],
-  );
+  const getColor = (code: string | undefined, isHovered: boolean) => {
+    if (!code || !COUNTRY_DATA[code]) return DEFAULT_COLOR;
+    const zone = COUNTRY_DATA[code].zone;
+    return isHovered ? ZONE_COLORS[zone].hover : ZONE_COLORS[zone].base;
+  };
 
   const selectedData = selected ? COUNTRY_DATA[selected] : null;
 
@@ -402,58 +394,46 @@ export default function DacodaEuropeMap() {
             style={{ width: '100%', height: 'auto' }}
             viewBox="0 0 900 500"
           >
-            <ZoomableGroup zoom={1} minZoom={0.8} maxZoom={4}>
-              <Geographies geography={GEO_URL}>
-                {({ geographies }) =>
-                  geographies.map((geo) => {
-                    const numericId = String(geo.id).padStart(3, '0');
-                    const code = NUMERIC_TO_CODE[numericId];
-                    const isCovered = !!(code && COUNTRY_DATA[code]);
-                    const isSelected = code === selected;
+            <Geographies geography={GEO_URL}>
+              {({ geographies }) =>
+                geographies.map((geo) => {
+                  const numericId = String(geo.id).padStart(3, '0');
+                  const code = NUMERIC_TO_CODE[numericId];
+                  const isCovered = !!(code && COUNTRY_DATA[code]);
+                  const isSelected = code === selected;
 
-                    return (
-                      <Geography
-                        key={geo.rsmKey}
-                        geography={geo}
-                        onClick={() => {
-                          if (code && COUNTRY_DATA[code])
-                            setSelected((prev) =>
-                              prev === code ? null : code,
-                            );
-                        }}
-                        onMouseEnter={() => {
-                          /* handled by style.hover */
-                        }}
-                        onMouseLeave={() => {
-                          /* handled by style.default */
-                        }}
-                        style={{
-                          default: {
-                            fill: isSelected
-                              ? '#0D1F3C'
-                              : getColor(code, false),
-                            stroke: '#fff',
-                            strokeWidth: 0.5,
-                            outline: 'none',
-                          },
-                          hover: {
-                            fill: isCovered ? getColor(code, true) : '#9ca3af',
-                            stroke: '#fff',
-                            strokeWidth: 0.5,
-                            outline: 'none',
-                            cursor: isCovered ? 'pointer' : 'default',
-                          },
-                          pressed: {
-                            fill: '#0D1F3C',
-                            outline: 'none',
-                          },
-                        }}
-                      />
-                    );
-                  })
-                }
-              </Geographies>
-            </ZoomableGroup>
+                  return (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      onClick={() => {
+                        if (code && COUNTRY_DATA[code])
+                          setSelected((prev) => (prev === code ? null : code));
+                      }}
+                      style={{
+                        default: {
+                          fill: isSelected ? '#0D1F3C' : getColor(code, false),
+                          stroke: '#fff',
+                          strokeWidth: 0.5,
+                          outline: 'none',
+                        },
+                        hover: {
+                          fill: isCovered ? getColor(code, true) : '#9ca3af',
+                          stroke: '#fff',
+                          strokeWidth: 0.5,
+                          outline: 'none',
+                          cursor: isCovered ? 'pointer' : 'default',
+                        },
+                        pressed: {
+                          fill: '#0D1F3C',
+                          outline: 'none',
+                        },
+                      }}
+                    />
+                  );
+                })
+              }
+            </Geographies>
           </ComposableMap>
 
           {/* Info panel */}
