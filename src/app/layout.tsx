@@ -1,6 +1,6 @@
 import './globals.css';
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 
 import Footer from '@/components/layout/footer';
@@ -32,7 +32,9 @@ const satoshi = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://dacoda.ro'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dacoda.ro',
+  ),
   title: {
     default: 'DACODA SRL — Transport Rutier Internațional',
     template: '%s | DACODA SRL',
@@ -50,8 +52,18 @@ export const metadata: Metadata = {
     'transport CSI',
     'DACODA',
   ],
-  authors: [{ name: 'DACODA SRL' }],
+  authors: [{ name: 'DACODA SRL', url: 'https://dacoda.ro' }],
   creator: 'DACODA SRL',
+  publisher: 'DACODA SRL',
+  icons: {
+    icon: [
+      { url: '/favicon/favicon.ico', sizes: '48x48' },
+      { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+    ],
+    apple: [{ url: '/favicon/apple-touch-icon.png', sizes: '180x180' }],
+    shortcut: [{ url: '/favicon/favicon.ico' }],
+  },
   openGraph: {
     type: 'website',
     locale: 'ro_RO',
@@ -72,6 +84,15 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: 'https://dacoda.ro',
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#0B1E3D',
 };
 
 const jsonLd = {

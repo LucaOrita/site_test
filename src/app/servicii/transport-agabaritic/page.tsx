@@ -22,6 +22,23 @@ export const metadata: Metadata = {
     'Transport Agabaritic — Mărfuri Grele și Supradimensionate | DACODA SRL',
   description:
     'Transport agabaritic specializat în Europa. Mărfuri grele, supradimensionate — autorizații, escortă, ancorare. Cazuri reale DACODA.',
+  alternates: {
+    canonical: 'https://dacoda.ro/servicii/transport-agabaritic',
+  },
+  openGraph: {
+    title: 'Transport Agabaritic Mărfuri Supradimensionate | DACODA SRL',
+    description:
+      'Transport agabaritic în Europa. Mărfuri grele până la 32 tone, autorizații, escortă. Cazuri reale documentate.',
+    url: 'https://dacoda.ro/servicii/transport-agabaritic',
+    images: [
+      {
+        url: '/images/agabaritic/11Lili.jpg',
+        width: 1152,
+        height: 2048,
+        alt: 'Transport agabaritic DACODA SRL',
+      },
+    ],
+  },
 };
 
 const criteria = [

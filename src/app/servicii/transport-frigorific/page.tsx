@@ -21,6 +21,16 @@ export const metadata: Metadata = {
   title: 'Transport Frigorific — Temperatură Controlată | DACODA SRL',
   description:
     'Transport marfă la temperatură controlată în Europa. Agregate certificate, diagrame temperatură, 2 șoferi per cursă. DACODA SRL.',
+  alternates: {
+    canonical: 'https://dacoda.ro/servicii/transport-frigorific',
+  },
+  openGraph: {
+    title: 'Transport Frigorific Temperatură Controlată | DACODA SRL',
+    description:
+      'Transport marfă la temperatură controlată -25°C până la +15°C. 2 șoferi per cursă lungă.',
+    url: 'https://dacoda.ro/servicii/transport-frigorific',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+  },
 };
 
 const highlights = [

@@ -16,6 +16,16 @@ export const metadata: Metadata = {
   title: 'Despre noi — DACODA SRL | 32 ani în transporturi',
   description:
     'Casă de expediții fondată în 1993, capital 100% românesc. Experiență în transport rutier internațional, ADR, frigorific și agabaritic.',
+  alternates: {
+    canonical: 'https://dacoda.ro/despre-noi',
+  },
+  openGraph: {
+    title: 'Despre DACODA SRL — 32 ani în transporturi',
+    description:
+      'Casă de expediții fondată în 1993. Capital 100% românesc. 1.100+ clienți activi, 3.500+ transportatori parteneri.',
+    url: 'https://dacoda.ro/despre-noi',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+  },
 };
 
 const cifre = [

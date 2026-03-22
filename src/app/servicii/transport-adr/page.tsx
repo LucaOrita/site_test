@@ -21,6 +21,16 @@ export const metadata: Metadata = {
   title: 'Transport ADR — Mărfuri Periculoase | DACODA SRL',
   description:
     'Transport mărfuri periculoase ADR clasele 3-6, 8, 9 în România și Europa. Documentație completă, șoferi certificați. +40 785 225 446',
+  alternates: {
+    canonical: 'https://dacoda.ro/servicii/transport-adr',
+  },
+  openGraph: {
+    title: 'Transport ADR Mărfuri Periculoase | DACODA SRL',
+    description:
+      'Transport mărfuri periculoase ADR clasele 3-6, 8, 9. Documentație completă, șoferi certificați.',
+    url: 'https://dacoda.ro/servicii/transport-adr',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+  },
 };
 
 const adrClasses = [

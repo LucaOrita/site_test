@@ -15,6 +15,23 @@ export const metadata: Metadata = {
   title: 'Servicii Transport | DACODA SRL',
   description:
     'Transport rutier, ADR, frigorific, agabaritic și cargo internațional — soluții complete pentru orice tip de marfă. Cerere ofertă în 2 ore.',
+  alternates: {
+    canonical: 'https://dacoda.ro/servicii',
+  },
+  openGraph: {
+    title: 'Servicii transport internațional | DACODA SRL',
+    description:
+      'Transport rutier, ADR, frigorific, agabaritic și cargo global. Soluții complete pentru orice tip de marfă.',
+    url: 'https://dacoda.ro/servicii',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Servicii transport DACODA SRL',
+      },
+    ],
+  },
 };
 
 const services = [

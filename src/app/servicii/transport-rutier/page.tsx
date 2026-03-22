@@ -36,6 +36,17 @@ export const metadata: Metadata = {
   title: 'Transport Rutier Internațional | DACODA SRL',
   description:
     'Transport marfă rutier FTL, LTL și grupaj în Europa, CSI și Orient. 32 ani experiență. Cerere ofertă în 2 ore. +40 785 225 446',
+  alternates: {
+    canonical: 'https://dacoda.ro/servicii/transport-rutier',
+  },
+  openGraph: {
+    title: 'Transport Rutier Internațional FTL LTL Grupaj | DACODA SRL',
+    description:
+      'Transport marfă FTL, LTL și grupaj în Europa, CSI și Orient. 32 ani experiență. Cerere ofertă în 2 ore.',
+    url: 'https://dacoda.ro/servicii/transport-rutier',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+  },
+  twitter: { card: 'summary_large_image', images: ['/og-image.jpg'] },
 };
 
 const offeringCards = [

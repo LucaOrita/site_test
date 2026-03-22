@@ -4,9 +4,21 @@ import DacodaBlogFilter from '@/components/sections/dacoda-blog-filter';
 import { getAllBlogs } from '@/lib/blog';
 
 export const metadata: Metadata = {
-  title: 'Blog — Informații utile despre transport | DACODA SRL',
+  title: {
+    absolute: 'Blog DACODA — Ghiduri transport și rute internaționale',
+  },
   description:
-    'Ghiduri practice, informații despre rute și legislație transport rutier internațional. Expertiză DACODA SRL din 1993.',
+    'Ghiduri practice, informații despre rute, legislație CMR și tipuri de transport. Expertiză acumulată în 32 ani de activitate.',
+  alternates: {
+    canonical: 'https://dacoda.ro/blog',
+  },
+  openGraph: {
+    title: 'Blog DACODA — Ghiduri transport internațional',
+    description:
+      'Ghiduri practice despre CMR, FTL/LTL, ADR, rute CSI și Europa.',
+    url: 'https://dacoda.ro/blog',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+  },
 };
 
 export default function BlogPage() {

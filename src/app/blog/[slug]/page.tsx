@@ -20,9 +20,30 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const post = getBlogBySlug(slug);
+
   return {
-    title: `${post.title} | DACODA SRL`,
+    title: post.title,
     description: post.excerpt,
+    alternates: {
+      canonical: `https://dacoda.ro/blog/${slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `https://dacoda.ro/blog/${slug}`,
+      type: 'article' as const,
+      publishedTime: post.date,
+      images: post.image
+        ? [{ url: post.image, alt: post.imageAlt ?? post.title }]
+        : [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+    },
+    authors: [{ name: 'DACODA SRL', url: 'https://dacoda.ro' }],
+    twitter: {
+      card: 'summary_large_image' as const,
+      title: post.title,
+      description: post.excerpt,
+      images: post.image ? [post.image] : ['/og-image.jpg'],
+    },
   };
 }
 

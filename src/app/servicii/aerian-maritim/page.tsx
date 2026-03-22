@@ -11,6 +11,16 @@ export const metadata: Metadata = {
   title: 'Transport Aerian și Maritim | DACODA SRL',
   description:
     'Cargo aerian și maritim pentru Asia și destinații globale. DACODA SRL organizează transport internațional complet. +40 785 225 446',
+  alternates: {
+    canonical: 'https://dacoda.ro/servicii/aerian-maritim',
+  },
+  openGraph: {
+    title: 'Transport Aerian și Maritim | DACODA SRL',
+    description:
+      'Cargo aerian și maritim pentru Asia și destinații globale prin parteneri selectați.',
+    url: 'https://dacoda.ro/servicii/aerian-maritim',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+  },
 };
 
 const airAdvantages = [

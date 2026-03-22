@@ -6,9 +6,18 @@ import DacodaEuropeMap from '@/components/sections/dacoda-europe-map';
 import Breadcrumb from '@/components/ui/breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'Rute și destinații | DACODA SRL',
+  title: 'Rute și destinații',
   description:
-    'Transport rutier în 40+ țări — Europa, CSI, Orient Mijlociu și Asia. Vezi toate destinațiile acoperite de DACODA SRL.',
+    'Transport rutier în 40+ țări — Europa, CSI, Orient Mijlociu și Asia. Hartă interactivă cu toate destinațiile DACODA SRL.',
+  alternates: {
+    canonical: 'https://dacoda.ro/rute',
+  },
+  openGraph: {
+    title: 'Rute transport internațional | DACODA SRL',
+    description: '40+ țări acoperite: Europa, CSI, Orient Mijlociu și Asia.',
+    url: 'https://dacoda.ro/rute',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+  },
 };
 
 export default function RutePage() {
