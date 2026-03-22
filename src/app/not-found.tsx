@@ -28,7 +28,7 @@ export default function NotFound() {
         style={{ color: 'rgba(255,255,255,0.6)' }}
       >
         Se pare că ruta pe care o cauți nu există sau a fost mutată. Ca și în
-        transport — uneori trebuie să recalculezi drumul.
+        transport, uneori trebuie să recalculezi drumul.
       </p>
 
       <div className="flex flex-col gap-3 sm:flex-row">

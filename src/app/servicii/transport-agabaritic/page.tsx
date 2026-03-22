@@ -18,10 +18,9 @@ import {
 } from '@/lib/schema';
 
 export const metadata: Metadata = {
-  title:
-    'Transport Agabaritic — Mărfuri Grele și Supradimensionate | DACODA SRL',
+  title: 'Transport Agabaritic Mărfuri Grele și Supradimensionate | DACODA SRL',
   description:
-    'Transport agabaritic specializat în Europa. Mărfuri grele, supradimensionate — autorizații, escortă, ancorare. Cazuri reale DACODA.',
+    'Transport agabaritic specializat în Europa. Mărfuri grele, supradimensionate: autorizații, escortă, ancorare. Cazuri reale DACODA.',
   alternates: {
     canonical: 'https://dacoda.ro/servicii/transport-agabaritic',
   },
@@ -32,7 +31,7 @@ export const metadata: Metadata = {
     url: 'https://dacoda.ro/servicii/transport-agabaritic',
     images: [
       {
-        url: '/images/agabaritic/11Lili.png',
+        url: '/images/agabaritic/11Lili.jpg',
         width: 1152,
         height: 2048,
         alt: 'Transport agabaritic DACODA SRL',
@@ -50,28 +49,28 @@ const criteria = [
 
 const galleryPhotos = [
   {
-    src: '/images/agabaritic/2.png',
-    alt: 'Transport tractoare John Deere pe platformă — DACODA SRL',
+    src: '/images/agabaritic/2.jpg',
+    alt: 'Transport tractoare John Deere pe platformă DACODA SRL',
   },
   {
-    src: '/images/agabaritic/4.png',
-    alt: 'Transport utilaj agricol extensibil pe lowboy — DACODA SRL',
+    src: '/images/agabaritic/4.jpg',
+    alt: 'Transport utilaj agricol extensibil pe lowboy DACODA SRL',
   },
   {
-    src: '/images/agabaritic/8.png',
-    alt: 'Transport echipament Hydrog pe platformă — DACODA SRL',
+    src: '/images/agabaritic/8.jpg',
+    alt: 'Transport echipament Hydrog pe platformă DACODA SRL',
   },
   {
-    src: '/images/agabaritic/9Lili.png',
-    alt: 'Transport agabaritic convoi excepțional — DACODA SRL',
+    src: '/images/agabaritic/9Lili.jpg',
+    alt: 'Transport agabaritic convoi excepțional DACODA SRL',
   },
   {
-    src: '/images/agabaritic/11Lili.png',
-    alt: 'Volvo FH convoi exceptionnel transport marfă industrială — DACODA SRL',
+    src: '/images/agabaritic/11Lili.jpg',
+    alt: 'Volvo FH convoi exceptionnel transport marfă industrială DACODA SRL',
   },
   {
-    src: '/images/agabaritic/5.png',
-    alt: 'Transport utilaje agricole pe lowboy — DACODA SRL',
+    src: '/images/agabaritic/5.jpg',
+    alt: 'Transport utilaje agricole pe lowboy DACODA SRL',
   },
 ];
 
@@ -96,7 +95,7 @@ const faqs = [
   },
   {
     q: 'Care e dimensiunea maximă transportabilă?',
-    a: 'Nu există o limită fixă — depinde de autorizațiile obținute. Am transportat mărfuri de până la 32 tone cu gabarit depășit.',
+    a: 'Nu există o limită fixă, depinde de autorizațiile obținute. Am transportat mărfuri de până la 32 tone cu gabarit depășit.',
   },
 ];
 
@@ -128,7 +127,7 @@ const faqSchemaData = makeFaqSchema([
   },
   {
     q: 'Care e greutatea maximă transportabilă?',
-    a: 'Nu există o limită fixă — depinde de autorizațiile obținute. Am transportat mărfuri de până la 32 tone cu gabarit depășit.',
+    a: 'Nu există o limită fixă, depinde de autorizațiile obținute. Am transportat mărfuri de până la 32 tone cu gabarit depășit.',
   },
 ]);
 
@@ -175,7 +174,7 @@ export default function TransportAgabariticPage() {
             Transport Agabaritic
           </h1>
           <p className="mb-8 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            Mărfuri grele și supradimensionate — organizăm tot procesul de la
+            Mărfuri grele și supradimensionate. Organizăm tot procesul de la
             autorizații până la livrare.
           </p>
 
@@ -239,11 +238,10 @@ export default function TransportAgabariticPage() {
             <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
               <div className="relative h-52 w-full overflow-hidden bg-gray-100">
                 <Image
-                  src="/images/agabaritic/1.png"
-                  alt="Transport agabaritic utilaj agricol pe lowboy — ruta Austria Bulgaria DACODA SRL"
+                  src="/images/agabaritic/1.jpg"
+                  alt="Transport agabaritic utilaj agricol pe lowboy ruta Austria Bulgaria DACODA SRL"
                   fill
                   className="object-cover transition-transform duration-500 hover:scale-105"
-                  style={{ objectPosition: 'center 40%' }}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute top-3 left-3">
@@ -291,11 +289,10 @@ export default function TransportAgabariticPage() {
             <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
               <div className="relative h-52 w-full overflow-hidden bg-gray-100">
                 <Image
-                  src="/images/agabaritic/7.png"
-                  alt="Transport agabaritic Wirtgen ruta Germania Romania — DACODA SRL"
+                  src="/images/agabaritic/7.jpg"
+                  alt="Transport agabaritic Wirtgen ruta Germania Romania DACODA SRL"
                   fill
                   className="object-cover transition-transform duration-500 hover:scale-105"
-                  style={{ objectPosition: 'center 40%' }}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute top-3 left-3">
@@ -343,11 +340,10 @@ export default function TransportAgabariticPage() {
             <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
               <div className="relative h-52 w-full overflow-hidden bg-gray-100">
                 <Image
-                  src="/images/agabaritic/3.png"
-                  alt="Transport agabaritic Strautmann marfă masivă ruta Belgia Romania — DACODA SRL"
+                  src="/images/agabaritic/3.jpg"
+                  alt="Transport agabaritic Strautmann marfă masivă ruta Belgia Romania DACODA SRL"
                   fill
                   className="object-cover transition-transform duration-500 hover:scale-105"
-                  style={{ objectPosition: 'center 40%' }}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute top-3 left-3">
@@ -444,7 +440,6 @@ export default function TransportAgabariticPage() {
                   alt={photo.alt}
                   fill
                   className="object-cover transition-transform duration-300 hover:scale-105"
-                  style={{ objectPosition: 'center 40%' }}
                   sizes="(max-width: 768px) 50vw, 33vw"
                 />
               </div>

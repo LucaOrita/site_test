@@ -18,7 +18,7 @@ import {
 } from '@/lib/schema';
 
 export const metadata: Metadata = {
-  title: 'Transport ADR — Mărfuri Periculoase | DACODA SRL',
+  title: 'Transport ADR Mărfuri Periculoase | DACODA SRL',
   description:
     'Transport mărfuri periculoase ADR clasele 3-6, 8, 9 în România și Europa. Documentație completă, șoferi certificați. +40 785 225 446',
   alternates: {
@@ -38,7 +38,7 @@ const adrClasses = [
     cls: 'Clasa 3',
     title: 'Lichide inflamabile',
     text: 'Combustibili, solvenți, vopsele, rășini',
-    example: 'Exemplu real: UN 1866 rășină alchidică — ruta Italia→RO',
+    example: 'Exemplu real: UN 1866 rășină alchidică, ruta Italia→RO',
   },
   {
     cls: 'Clasa 4',
@@ -142,7 +142,7 @@ export default function TransportAdrPage() {
             src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=75"
             alt="Transport ADR mărfuri periculoase"
             fill
-            className="object-cover opacity-25"
+            className="object-cover opacity-40"
             sizes="100vw"
           />
         </div>
@@ -161,7 +161,7 @@ export default function TransportAdrPage() {
             Transport Mărfuri Periculoase ADR
           </h1>
           <p className="mb-8 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            Clase 3–6, 8 și 9 — documentație completă, vehicule echipate, șoferi
+            Clase 3–6, 8 și 9. Documentație completă, vehicule echipate, șoferi
             certificați ADR.
           </p>
 
@@ -277,7 +277,7 @@ export default function TransportAdrPage() {
         <div className="container px-4 py-16 lg:px-6 lg:py-24">
           <div className="mx-auto max-w-2xl rounded-xl border-l-4 border-[var(--dacoda-orange)] bg-white p-8 shadow-sm">
             <span className="text-dacoda-orange mb-2 block text-xs font-semibold tracking-wider uppercase">
-              Caz real — Transport ADR cls. 3
+              Caz real: Transport ADR cls. 3
             </span>
             <h3 className="text-dacoda-navy mb-4 text-xl font-bold">
               Rășină alchidică (UN 1866)

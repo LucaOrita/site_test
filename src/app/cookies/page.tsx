@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Politică Cookies — DACODA SRL',
+  title: 'Politică Cookies | DACODA SRL',
   description: 'Politica de utilizare a cookie-urilor pe site-ul DACODA SRL.',
 };
 
@@ -40,11 +40,11 @@ export default function CookiesPage() {
             <h3>Cookie-uri esențiale</h3>
             <ul>
               <li>
-                <strong>dacoda-theme</strong> — Reține preferința de temă (light
-                / dark)
+                <strong>dacoda-theme</strong>: Reține preferința de temă (light /
+                dark)
               </li>
               <li>
-                <strong>cookies-accepted</strong> — Reține acordul pentru
+                <strong>cookies-accepted</strong>: Reține acordul pentru
                 cookie-uri
               </li>
             </ul>
@@ -59,11 +59,9 @@ export default function CookiesPage() {
 
             <h2>3. Durata de stocare</h2>
             <ul>
+              <li>Cookie-uri de sesiune: se șterg la închiderea browserului</li>
               <li>
-                Cookie-uri de sesiune — se șterg la închiderea browserului
-              </li>
-              <li>
-                Cookie-uri persistente — rămân pe dispozitiv conform duratei
+                Cookie-uri persistente: rămân pe dispozitiv conform duratei
                 specificate (de regulă 1 an)
               </li>
             </ul>

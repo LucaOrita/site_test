@@ -65,7 +65,7 @@ export default function DacodaFormPaste() {
         value={text}
         onChange={(e) => setText(e.target.value)}
         rows={8}
-        placeholder={`Lipește aici orice text care descrie transportul — un email, un mesaj WhatsApp, o specificație internă.\n\nExemplu: "Am nevoie de transport 15 tone mobilă din București la Hamburg, săptămâna viitoare, nu urgent"`}
+        placeholder={`Lipește aici orice text care descrie transportul: un email, un mesaj WhatsApp, o specificație internă.\n\nExemplu: "Am nevoie de transport 15 tone mobilă din București la Hamburg, săptămâna viitoare, nu urgent"`}
         className="text-base"
       />
 

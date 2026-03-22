@@ -122,7 +122,7 @@ export default async function BlogPostPage({
               Ai nevoie de transport? Suntem aici.
             </h2>
             <p className="mb-6 text-white/80">
-              Contactează-ne pentru o ofertă rapidă — răspundem în maxim 2 ore.
+              Contactează-ne pentru o ofertă rapidă, răspundem în maxim 2 ore.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link

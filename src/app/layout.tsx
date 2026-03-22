@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dacoda.ro',
   ),
   title: {
-    default: 'DACODA SRL — Transport Rutier Internațional',
+    default: 'DACODA SRL | Transport Rutier Internațional',
     template: '%s | DACODA SRL',
   },
   description:
@@ -69,14 +69,14 @@ export const metadata: Metadata = {
     locale: 'ro_RO',
     url: 'https://dacoda.ro',
     siteName: 'DACODA SRL',
-    title: 'DACODA SRL — Transport Rutier Internațional',
+    title: 'DACODA SRL | Transport Rutier Internațional',
     description:
       'Casă de expediții cu 32 ani experiență. Transport rutier, ADR, frigorific, agabaritic în 40+ țări.',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DACODA SRL — Transport Rutier Internațional',
+    title: 'DACODA SRL | Transport Rutier Internațional',
     description:
       'Casă de expediții cu 32 ani experiență în Europa, CSI și Asia.',
   },
@@ -107,18 +107,21 @@ const jsonLd = {
         'Casă de expediții fondată în 1993. Transport rutier internațional FTL/LTL/grupaj, ADR, frigorific, agabaritic, aerian și maritim. 32 ani experiență, 40+ țări.',
       url: 'https://dacoda.ro',
       telephone: '+40785225446',
-      email: 'comercial@dacoda.ro',
+      email: 'oritaluca@gmail.com',
       foundingDate: '1993',
+      taxID: '4989577',
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Timișoara',
-        addressRegion: 'Timiș',
+        streetAddress: 'Str. Vespasian nr. 41A, et. 1',
+        addressLocality: 'București',
+        addressRegion: 'Sector 1',
+        postalCode: '011741',
         addressCountry: 'RO',
       },
       geo: {
         '@type': 'GeoCoordinates',
-        latitude: 45.7489,
-        longitude: 21.2087,
+        latitude: 44.4525,
+        longitude: 26.0855,
       },
       areaServed: [
         { '@type': 'Continent', name: 'Europe' },

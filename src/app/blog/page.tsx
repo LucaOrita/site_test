@@ -5,7 +5,7 @@ import { getAllBlogs } from '@/lib/blog';
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Blog DACODA — Ghiduri transport și rute internaționale',
+    absolute: 'Blog DACODA | Ghiduri transport și rute internaționale',
   },
   description:
     'Ghiduri practice, informații despre rute, legislație CMR și tipuri de transport. Expertiză acumulată în 32 ani de activitate.',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     canonical: 'https://dacoda.ro/blog',
   },
   openGraph: {
-    title: 'Blog DACODA — Ghiduri transport internațional',
+    title: 'Blog DACODA | Ghiduri transport internațional',
     description:
       'Ghiduri practice despre CMR, FTL/LTL, ADR, rute CSI și Europa.',
     url: 'https://dacoda.ro/blog',
@@ -44,7 +44,7 @@ export default function BlogPage() {
             Informații utile despre transport
           </h1>
           <p className="max-w-2xl text-lg text-white/70">
-            Ghiduri practice, rute și legislație — din experiența a 32 de ani în
+            Ghiduri practice, rute și legislație, din experiența a 32 de ani în
             transporturi.
           </p>
         </div>

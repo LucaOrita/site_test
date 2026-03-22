@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Termeni și Condiții — DACODA SRL',
+  title: 'Termeni și Condiții | DACODA SRL',
   description:
     'Termenii și condițiile de utilizare a site-ului DACODA SRL și a serviciilor de expediție transport.',
 };

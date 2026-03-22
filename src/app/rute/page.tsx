@@ -8,7 +8,7 @@ import Breadcrumb from '@/components/ui/breadcrumb';
 export const metadata: Metadata = {
   title: 'Rute și destinații',
   description:
-    'Transport rutier în 40+ țări — Europa, CSI, Orient Mijlociu și Asia. Hartă interactivă cu toate destinațiile DACODA SRL.',
+    'Transport rutier în 40+ țări: Europa, CSI, Orient Mijlociu și Asia. Hartă interactivă cu toate destinațiile DACODA SRL.',
   alternates: {
     canonical: 'https://dacoda.ro/rute',
   },
@@ -57,7 +57,7 @@ export default function RutePage() {
             Transportăm în țara ta? Cere o ofertă.
           </h2>
           <p className="mx-auto mb-8 max-w-xl text-base leading-relaxed text-white/70">
-            Nu găsești destinația? Contactează-ne — acoperim și rute mai puțin
+            Nu găsești destinația? Contactează-ne, acoperim și rute mai puțin
             obișnuite.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">

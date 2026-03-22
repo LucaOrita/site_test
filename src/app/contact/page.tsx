@@ -4,7 +4,7 @@ import ContactClient from './contact-client';
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Contact DACODA SRL — +40 785 225 446',
+    absolute: 'Contact DACODA SRL | +40 785 225 446',
   },
   description:
     'Contactează DACODA SRL pentru transport rutier internațional. Telefon: +40 785 225 446, email: comercial@dacoda.ro. Timișoara, România.',

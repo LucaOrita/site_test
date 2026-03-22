@@ -37,7 +37,7 @@ export default function ContactClient() {
     setStatus('sending');
     try {
       const result = await submitToFormspree(DACODA_CONFIG.formspree.contact, {
-        _subject: `Contact: ${form.subject} — ${form.name}`,
+        _subject: `Contact: ${form.subject} | ${form.name}`,
         _replyto: form.email,
         Nume: form.name,
         Email: form.email,
@@ -86,32 +86,79 @@ export default function ContactClient() {
                 DACODA SRL
               </h2>
 
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <MapPin className="text-dacoda-orange mt-0.5 h-5 w-5 shrink-0" />
-                  <span className="text-dacoda-gray text-sm">
-                    Timișoara, România
-                  </span>
+              {/* București */}
+              <div className="rounded-xl border border-gray-100 bg-gray-50 p-6">
+                <h3
+                  className="mb-3 font-semibold"
+                  style={{ color: 'var(--dacoda-navy)' }}
+                >
+                  Sediu: București
+                </h3>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-start gap-2">
+                    <MapPin className="text-dacoda-orange mt-0.5 h-4 w-4 shrink-0" />
+                    <span>Str. Vespasian nr. 41A, et. 1, Sector 1</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone className="text-dacoda-orange h-4 w-4 shrink-0" />
+                    <a href="tel:+40785225446" className="hover:underline">
+                      +40 785 225 446
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone className="text-dacoda-orange h-4 w-4 shrink-0" />
+                    <a href="tel:+40213268658" className="hover:underline">
+                      +40 21 326 86 58 (fix)
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="text-dacoda-orange h-4 w-4 shrink-0" />
+                    <a
+                      href="mailto:oritaluca@gmail.com"
+                      className="hover:underline"
+                    >
+                      oritaluca@gmail.com
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="text-dacoda-orange h-4 w-4 shrink-0" />
+                    <span>Luni–Vineri, 8:30–17:30</span>
+                  </div>
                 </div>
-                <a
-                  href="tel:+40785225446"
-                  className="flex items-center gap-3 text-sm text-gray-700 transition-colors hover:text-gray-900"
+              </div>
+
+              {/* Cluj */}
+              <div className="mt-4 rounded-xl border border-gray-100 bg-gray-50 p-6">
+                <h3
+                  className="mb-3 font-semibold"
+                  style={{ color: 'var(--dacoda-navy)' }}
                 >
-                  <Phone className="text-dacoda-orange h-5 w-5 shrink-0" />
-                  +40 785 225 446
-                </a>
-                <a
-                  href="mailto:comercial@dacoda.ro"
-                  className="flex items-center gap-3 text-sm text-gray-700 transition-colors hover:text-gray-900"
-                >
-                  <Mail className="text-dacoda-orange h-5 w-5 shrink-0" />
-                  comercial@dacoda.ro
-                </a>
-                <div className="flex items-center gap-3">
-                  <Clock className="text-dacoda-orange h-5 w-5 shrink-0" />
-                  <span className="text-dacoda-gray text-sm">
-                    Luni–Vineri, 8:00–18:00
-                  </span>
+                  Punct de lucru: Cluj-Napoca
+                </h3>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-start gap-2">
+                    <MapPin className="text-dacoda-orange mt-0.5 h-4 w-4 shrink-0" />
+                    <span>Str. Croitorilor nr. 16, Cluj-Napoca</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone className="text-dacoda-orange h-4 w-4 shrink-0" />
+                    <a href="tel:+40785225446" className="hover:underline">
+                      +40 785 225 446
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="text-dacoda-orange h-4 w-4 shrink-0" />
+                    <a
+                      href="mailto:oritaluca@gmail.com"
+                      className="hover:underline"
+                    >
+                      oritaluca@gmail.com
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="text-dacoda-orange h-4 w-4 shrink-0" />
+                    <span>Luni–Vineri, 8:30–17:30</span>
+                  </div>
                 </div>
               </div>
 
@@ -131,16 +178,6 @@ export default function ContactClient() {
                 </svg>
                 Scrie-ne pe WhatsApp
               </a>
-
-              {/* Map placeholder */}
-              <div className="mt-8 flex h-48 items-center justify-center rounded-xl bg-gray-100">
-                <div className="text-center">
-                  <MapPin className="text-dacoda-gray mx-auto mb-2 h-8 w-8" />
-                  <p className="text-dacoda-gray text-sm font-medium">
-                    Timișoara, România
-                  </p>
-                </div>
-              </div>
             </div>
 
             {/* Right — form (60%) */}

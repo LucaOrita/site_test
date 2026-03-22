@@ -81,7 +81,7 @@ export default function DacodaHero() {
           custom={2}
         >
           De 32 de ani organizăm transporturi sigure și predictibile în Europa,
-          CSI și Asia. Știm rutele, legislația și riscurile — ca să nu
+          CSI și Asia. Știm rutele, legislația și riscurile, ca să nu
           trebuiești tu să le știi.
         </motion.p>
 
@@ -94,7 +94,7 @@ export default function DacodaHero() {
         >
           <Link
             href="/cerere-oferta"
-            className="bg-dacoda-orange hover:bg-dacoda-orange-dark inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-white transition-colors"
+            className="bg-dacoda-orange hover:border-dacoda-orange hover:text-dacoda-orange hover:text-faux-bold inline-flex items-center gap-2 rounded-xl border border-transparent px-6 py-3 text-sm font-medium text-white transition-all duration-200 hover:bg-white"
           >
             Cere o ofertă
             <ArrowRight className="h-4 w-4" />

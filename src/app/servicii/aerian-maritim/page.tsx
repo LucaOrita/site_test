@@ -53,7 +53,7 @@ const seaAdvantages = [
 const serviceSchema = makeServiceSchema({
   name: 'Transport Aerian și Maritim Cargo',
   description:
-    'Cargo aerian și maritim pentru Asia și destinații globale. FCL, LCL, AWB. DACODA organizează tot lanțul logistic — rutier intern + aerian/maritim intercontinental.',
+    'Cargo aerian și maritim pentru Asia și destinații globale. FCL, LCL, AWB. DACODA organizează tot lanțul logistic: rutier intern + aerian/maritim intercontinental.',
   url: 'https://dacoda.ro/servicii/aerian-maritim',
   areaServed: [
     'China',
@@ -113,7 +113,7 @@ export default function AerianMaritimPage() {
             Transport Aerian & Maritim
           </h1>
           <p className="mb-8 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            Cargo internațional pentru Asia și destinații globale — completăm
+            Cargo internațional pentru Asia și destinații globale. Completăm
             rutele rutiere cu soluții air & sea.
           </p>
 
@@ -236,7 +236,7 @@ export default function AerianMaritimPage() {
 
                 <div className="rounded-lg border border-blue-100 bg-blue-50 p-4">
                   <p className="text-sm leading-relaxed text-blue-800">
-                    Serviciul maritim este complementar rutierului — îl
+                    Serviciul maritim este complementar rutierului și îl
                     recomandăm pentru volume mari spre Asia.
                   </p>
                 </div>
@@ -255,7 +255,7 @@ export default function AerianMaritimPage() {
             </h2>
             <p className="text-dacoda-gray text-base leading-relaxed md:text-lg">
               Avantajul DACODA față de un agent aerian/maritim dedicat:
-              gestionăm tot lanțul logistic — de la fabrica ta (rutier intern)
+              gestionăm tot lanțul logistic, de la fabrica ta (rutier intern)
               până la destinația finală (maritim/aerian). Un singur
               interlocutor, o singură responsabilitate.
             </p>

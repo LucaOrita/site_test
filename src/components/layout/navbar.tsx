@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
+import { ChevronDown, ChevronRight, Home, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -17,6 +17,7 @@ const SERVICII_LINKS = [
 ];
 
 const NAV_LINKS = [
+  { label: 'Acasă', href: '/', icon: true },
   { label: 'Servicii', href: '/servicii', hasDropdown: true },
   { label: 'Rute', href: '/rute' },
   { label: 'Blog', href: '/blog' },
@@ -66,23 +67,33 @@ const Navbar = () => {
       )}
     >
       <div className="container flex h-16 items-center justify-between px-4 lg:h-20 lg:px-6">
-        {/* Logo */}
-        <Link href="/" className="relative block">
+        {/* Logo — two images stacked; the orange one fades in on hover */}
+        <Link href="/" className="group relative block">
+          {/* Default logo (black or white depending on scroll) */}
           <Image
-            src="/images/logo-dacoda.png"
-            alt="DACODA — Expediții Rutiere"
+            src="/images/logo-dacoda-simplu.png"
+            alt="DACODA Expediții Rutiere"
             width={140}
-            height={59}
+            height={48}
             className={cn(
-              'h-10 w-auto transition-all duration-300 lg:h-12',
+              'h-10 w-auto transition-opacity duration-300 group-hover:opacity-0 lg:h-12',
               scrolled ? 'brightness-0' : 'brightness-0 invert',
             )}
             priority
           />
+          {/* Orange logo on hover */}
+          <Image
+            src="/images/logo-dacoda-simplu-orange.png"
+            alt=""
+            width={140}
+            height={48}
+            aria-hidden
+            className="absolute inset-0 h-10 w-auto opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:h-12"
+          />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-0.5 md:flex">
           {NAV_LINKS.map((link) =>
             link.hasDropdown ? (
               <div
@@ -93,16 +104,24 @@ const Navbar = () => {
               >
                 <button
                   className={cn(
-                    'flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-300',
+                    'group/svc relative flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 hover:scale-105',
                     isActive('/servicii')
                       ? 'text-dacoda-orange'
                       : scrolled
                         ? 'text-dacoda-navy hover:text-dacoda-orange'
-                        : 'text-white hover:text-white/80',
+                        : 'hover:text-dacoda-orange text-white',
                   )}
                   onClick={() => setDesktopServiciiOpen(!desktopServiciiOpen)}
                 >
                   {link.label}
+                  <span
+                    className={cn(
+                      'bg-dacoda-orange absolute bottom-0 left-1/2 h-0.5 -translate-x-1/2 rounded-full transition-all duration-300',
+                      isActive('/servicii')
+                        ? 'w-3/4'
+                        : 'w-0 group-hover/svc:w-3/4',
+                    )}
+                  />
                   <ChevronDown
                     className={cn(
                       'h-3.5 w-3.5 transition-transform duration-200',
@@ -121,15 +140,26 @@ const Navbar = () => {
                   )}
                 >
                   <div className="w-56 rounded-xl border border-gray-100 bg-white p-2 shadow-lg">
+                    <Link
+                      href="/servicii"
+                      className={cn(
+                        'mb-1 block rounded-lg border-b border-gray-100 px-3 py-2.5 text-sm font-semibold transition-all duration-200',
+                        pathname === '/servicii'
+                          ? 'bg-dacoda-orange/10 text-dacoda-orange'
+                          : 'text-dacoda-navy hover:bg-dacoda-orange/10 hover:text-dacoda-orange',
+                      )}
+                    >
+                      Toate serviciile
+                    </Link>
                     {SERVICII_LINKS.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
                         className={cn(
-                          'block rounded-lg px-3 py-2.5 text-sm transition-colors',
+                          'block rounded-lg px-3 py-2.5 text-sm transition-all duration-200',
                           isActive(item.href)
-                            ? 'bg-dacoda-orange-light text-dacoda-orange font-medium'
-                            : 'text-dacoda-navy hover:bg-dacoda-orange-light hover:text-dacoda-orange',
+                            ? 'bg-dacoda-orange/10 text-dacoda-orange font-medium'
+                            : 'text-dacoda-navy hover:bg-dacoda-orange/10 hover:text-dacoda-orange',
                         )}
                       >
                         {item.title}
@@ -143,15 +173,25 @@ const Navbar = () => {
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  'rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-300',
+                  'group/nav relative flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 hover:scale-105',
                   isActive(link.href)
                     ? 'text-dacoda-orange'
                     : scrolled
                       ? 'text-dacoda-navy hover:text-dacoda-orange'
-                      : 'text-white hover:text-white/80',
+                      : 'hover:text-dacoda-orange text-white',
                 )}
               >
+                {'icon' in link && link.icon && (
+                  <Home className="h-4 w-4 transition-transform duration-200 group-hover/nav:scale-110" />
+                )}
                 {link.label}
+                {/* Animated underline */}
+                <span
+                  className={cn(
+                    'bg-dacoda-orange absolute bottom-0 left-1/2 h-0.5 -translate-x-1/2 rounded-full transition-all duration-300',
+                    isActive(link.href) ? 'w-3/4' : 'w-0 group-hover/nav:w-3/4',
+                  )}
+                />
               </Link>
             ),
           )}
@@ -167,7 +207,7 @@ const Navbar = () => {
           </Link>
           <Link
             href="/cerere-oferta"
-            className="bg-dacoda-orange hover:bg-dacoda-orange-dark rounded-xl px-4 py-2 text-sm font-medium text-white transition-colors duration-200"
+            className="bg-dacoda-orange hover:border-dacoda-orange hover:text-dacoda-orange hover:text-faux-bold rounded-xl border border-transparent px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-white"
           >
             Cere ofertă
           </Link>
@@ -206,10 +246,10 @@ const Navbar = () => {
                 <button
                   onClick={() => setServiciiOpen(!serviciiOpen)}
                   className={cn(
-                    'flex w-full items-center justify-between rounded-lg px-3 py-3 text-lg font-medium',
+                    'flex w-full items-center justify-between rounded-lg px-3 py-3 text-lg font-medium transition-all duration-200',
                     isActive('/servicii')
-                      ? 'text-dacoda-orange'
-                      : 'text-dacoda-navy',
+                      ? 'bg-dacoda-orange/10 text-dacoda-orange'
+                      : 'text-dacoda-navy hover:bg-dacoda-orange/10 hover:text-dacoda-orange',
                   )}
                 >
                   {link.label}
@@ -249,12 +289,13 @@ const Navbar = () => {
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  'rounded-lg px-3 py-3 text-lg font-medium',
+                  'flex items-center gap-2 rounded-lg px-3 py-3 text-lg font-medium transition-all duration-200',
                   isActive(link.href)
-                    ? 'text-dacoda-orange'
-                    : 'text-dacoda-navy',
+                    ? 'bg-dacoda-orange/10 text-dacoda-orange'
+                    : 'text-dacoda-navy hover:bg-dacoda-orange/10 hover:text-dacoda-orange',
                 )}
               >
+                {'icon' in link && link.icon && <Home className="h-5 w-5" />}
                 {link.label}
               </Link>
             ),
@@ -270,7 +311,7 @@ const Navbar = () => {
             </Link>
             <Link
               href="/cerere-oferta"
-              className="bg-dacoda-orange rounded-xl py-3 text-center text-sm font-medium text-white transition-colors"
+              className="bg-dacoda-orange hover:border-dacoda-orange hover:text-dacoda-orange hover:text-faux-bold rounded-xl border border-transparent py-3 text-center text-sm font-medium text-white transition-all duration-200 hover:bg-white"
             >
               Cere ofertă
             </Link>

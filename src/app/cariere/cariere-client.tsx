@@ -27,7 +27,7 @@ export default function CariereClient() {
     setStatus('sending');
     try {
       const result = await submitToFormspree(DACODA_CONFIG.formspree.contact, {
-        _subject: `Aplicatie: ${form.pozitie || 'General'} — ${form.name}`,
+        _subject: `Aplicatie: ${form.pozitie || 'General'} | ${form.name}`,
         _replyto: form.email,
         Nume: form.name,
         Email: form.email,

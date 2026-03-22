@@ -5,7 +5,7 @@ const cards = [
   {
     icon: MapPin,
     title: 'Cunoaștem rutele',
-    text: '32 de ani pe aceleași coridoare înseamnă că știm ce se întâmplă la granița cu Kazahstanul — și cum rezolvăm.',
+    text: '32 de ani pe aceleași coridoare înseamnă că știm ce se întâmplă la granița cu Kazahstanul și cum rezolvăm.',
   },
   {
     icon: Shield,
@@ -15,7 +15,7 @@ const cards = [
   {
     icon: Phone,
     title: 'Oameni, nu chatboți',
-    text: 'O persoană reală cunoaște dosarul tău și îți răspunde când ai nevoie — nu un sistem automatizat.',
+    text: 'O persoană reală cunoaște dosarul tău și îți răspunde când ai nevoie, nu un sistem automatizat.',
   },
   {
     icon: Users,
@@ -32,7 +32,7 @@ export default function DacodaWhy() {
     >
       <div className="container px-4 lg:px-6">
         {/* Titlu centrat sus */}
-        <div className="mb-12 text-center">
+        <div className="mb-10 text-center">
           <h2
             className="mb-3 text-3xl font-bold"
             style={{ color: 'var(--dacoda-navy)' }}
@@ -49,30 +49,28 @@ export default function DacodaWhy() {
         <div className="grid items-center gap-10 lg:grid-cols-2">
           {/* Coloana stânga — fotografie reală */}
           <div
-            className="relative overflow-hidden rounded-2xl"
-            style={{ height: '480px' }}
+            className="relative overflow-hidden rounded-2xl shadow-md"
+            style={{ height: '420px' }}
           >
             <Image
-              src="/images/agabaritic/2.png"
-              alt="Transport agabaritic tractoare — DACODA SRL experiență 32 ani"
+              src="/images/agabaritic/2.jpg"
+              alt="Transport tractoare John Deere platformă DACODA SRL 32 ani experiență"
               fill
               className="object-cover"
-              style={{ objectPosition: 'center 40%' }}
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
-            {/* Overlay cu stats */}
             <div
-              className="absolute right-0 bottom-0 left-0 p-5"
+              className="absolute right-0 bottom-0 left-0 px-5 py-4"
               style={{
                 background:
-                  'linear-gradient(to top, rgba(13,31,60,0.9) 0%, transparent 100%)',
+                  'linear-gradient(to top,rgba(13,31,60,.85) 0%,transparent 100%)',
               }}
             >
-              <p className="text-sm font-medium text-white/70">
-                Transport executat de Dacoda
+              <p className="text-xs" style={{ color: 'rgba(255,255,255,.6)' }}>
+                Transport executat de DACODA SRL
               </p>
-              <p className="mt-1 text-lg font-bold text-white">
-                4 tractoare John Deere — platformă specială
+              <p className="mt-1 text-sm font-semibold text-white">
+                4 tractoare John Deere, platformă specială internațională
               </p>
             </div>
           </div>

@@ -21,7 +21,17 @@
       "Read(//c/Users/orita/OneDrive/Desktop/**)",
       "Bash(ls c:/Users/orita/OneDrive/Desktop/*.png c:/Users/orita/OneDrive/Desktop/*.jpg c:/Users/orita/OneDrive/Desktop/*.svg)",
       "Read(//c/Users/orita/**)",
-      "Bash(find /c/Users/orita -maxdepth 5 -type f -name 9Lili* -o -name 11Lili*)"
+      "Bash(find /c/Users/orita -maxdepth 5 -type f -name 9Lili* -o -name 11Lili*)",
+      "Bash(pip --version)",
+      "Bash(pip3 --version)",
+      "Bash(\"c:/users/orita/appdata/local/programs/python/python39/python.exe\" --version)",
+      "Bash(ls /c/Python*/python.exe)",
+      "Bash(ls /c/Users/orita/AppData/Local/Programs/Python/*/python.exe)",
+      "Bash(/c/Users/orita/AppData/Local/Programs/Python/Python39/python.exe -c \":*)",
+      "Bash(find 'c:\\\\Users\\\\orita\\\\OneDrive\\\\Desktop\\\\Dacoda Site\\\\site_test' -name favicon.ico -o -name icon* -o -name apple-icon*)",
+      "Bash(find /c/Users/orita/Downloads -iname *roata* -o -iname *wheel* -o -iname *dacoda*icon* -o -iname *dacoda*roata*)",
+      "Bash(find /c/Users/orita/OneDrive/Desktop -iname *roata*)",
+      "Bash(grep -v '//')"
     ],
     "additionalDirectories": [
       "c:\\Users\\orita\\Downloads\\Mica vectorizare logo Dacoda"

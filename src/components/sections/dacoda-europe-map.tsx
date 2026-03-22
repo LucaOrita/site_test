@@ -1,12 +1,72 @@
 'use client';
 
-import { ArrowRight, Clock, MapPin, Truck, X } from 'lucide-react';
+import { ArrowRight, X } from 'lucide-react';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  ZoomableGroup,
+} from 'react-simple-maps';
 
-/* ------------------------------------------------------------------ */
-/*  Data                                                               */
-/* ------------------------------------------------------------------ */
+// Natural Earth TopoJSON — world countries, hosted on CDN
+const GEO_URL =
+  'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
+
+// ISO numeric → ISO alpha-2 mapping for countries we cover
+const NUMERIC_TO_CODE: Record<string, string> = {
+  '276': 'DE',
+  '250': 'FR',
+  '380': 'IT',
+  '724': 'ES',
+  '528': 'NL',
+  '056': 'BE',
+  '616': 'PL',
+  '348': 'HU',
+  '040': 'AT',
+  '203': 'CZ',
+  '703': 'SK',
+  '100': 'BG',
+  '300': 'GR',
+  '620': 'PT',
+  '752': 'SE',
+  '208': 'DK',
+  '756': 'CH',
+  '191': 'HR',
+  '688': 'RS',
+  '498': 'MD',
+  '804': 'UA',
+  '112': 'BY',
+  '643': 'RU',
+  '398': 'KZ',
+  '268': 'GE',
+  '051': 'AM',
+  '031': 'AZ',
+  '792': 'TR',
+  '364': 'IR',
+  '682': 'SA',
+  '784': 'AE',
+  '156': 'CN',
+  '356': 'IN',
+  '642': 'RO',
+  '442': 'LU',
+  '246': 'FI',
+  '578': 'NO',
+  '352': 'IS',
+  '372': 'IE',
+  '826': 'GB',
+  '440': 'LT',
+  '428': 'LV',
+  '233': 'EE',
+  '807': 'MK',
+  '008': 'AL',
+  '070': 'BA',
+  '499': 'ME',
+  '705': 'SI',
+  '196': 'CY',
+  '470': 'MT',
+};
 
 interface CountryInfo {
   name: string;
@@ -16,7 +76,6 @@ interface CountryInfo {
 }
 
 const COUNTRY_DATA: Record<string, CountryInfo> = {
-  // Europa UE
   DE: {
     name: 'Germania',
     zone: 'europa',
@@ -131,18 +190,83 @@ const COUNTRY_DATA: Record<string, CountryInfo> = {
     transport: ['Rutier FTL/LTL'],
     transitTime: '~1 zi',
   },
-  RO: {
-    name: 'România',
-    zone: 'europa',
-    transport: ['Bază operațiuni'],
-    transitTime: 'Origine',
-  },
-  // CSI
   MD: {
     name: 'Moldova',
     zone: 'csi',
-    transport: ['Rutier FTL/LTL'],
+    transport: ['Rutier extracomunitar'],
     transitTime: '~1 zi',
+  },
+  RO: {
+    name: 'România',
+    zone: 'europa',
+    transport: ['Intern + FTL/LTL'],
+    transitTime: 'origine',
+  },
+  GB: {
+    name: 'Marea Britanie',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~4-5 zile',
+  },
+  IE: {
+    name: 'Irlanda',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~5-6 zile',
+  },
+  FI: {
+    name: 'Finlanda',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~4-5 zile',
+  },
+  NO: {
+    name: 'Norvegia',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~4-5 zile',
+  },
+  LT: {
+    name: 'Lituania',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~2 zile',
+  },
+  LV: {
+    name: 'Letonia',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~2-3 zile',
+  },
+  EE: {
+    name: 'Estonia',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~3 zile',
+  },
+  LU: {
+    name: 'Luxemburg',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~3-4 zile',
+  },
+  SI: {
+    name: 'Slovenia',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~1-2 zile',
+  },
+  MK: {
+    name: 'Macedonia',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~1-2 zile',
+  },
+  AL: {
+    name: 'Albania',
+    zone: 'europa',
+    transport: ['Rutier FTL/LTL'],
+    transitTime: '~2 zile',
   },
   UA: {
     name: 'Ucraina',
@@ -186,7 +310,6 @@ const COUNTRY_DATA: Record<string, CountryInfo> = {
     transport: ['Rutier extracomunitar'],
     transitTime: '~4-5 zile',
   },
-  // Orient & Asia
   TR: {
     name: 'Turcia',
     zone: 'orient',
@@ -203,332 +326,239 @@ const COUNTRY_DATA: Record<string, CountryInfo> = {
     name: 'EAU',
     zone: 'orient',
     transport: ['Aerian', 'Maritim'],
-    transitTime: 'Aerian: ~1-2 zile',
+    transitTime: '~1-2 zile (aerian)',
   },
   SA: {
     name: 'Arabia Saudită',
     zone: 'orient',
     transport: ['Aerian', 'Maritim'],
-    transitTime: 'Aerian: ~1-2 zile',
+    transitTime: '~1-2 zile (aerian)',
   },
   CN: {
     name: 'China',
     zone: 'orient',
     transport: ['Aerian', 'Maritim'],
-    transitTime: 'Aerian: ~2-3 zile / Maritim: ~25-35 zile',
+    transitTime: '~2-3 zile (aerian)',
   },
   IN: {
     name: 'India',
     zone: 'orient',
     transport: ['Aerian', 'Maritim'],
-    transitTime: 'Aerian: ~1-2 zile',
+    transitTime: '~1-2 zile (aerian)',
   },
 };
 
-const ZONE_META = {
-  europa: { base: '#1D9E75', hover: '#0F6E56', label: 'Europa' },
-  csi: { base: '#185FA5', hover: '#0C447C', label: 'CSI & Est' },
-  orient: { base: '#E8931A', hover: '#c4780f', label: 'Orient & Asia' },
-} as const;
-
-/* ------------------------------------------------------------------ */
-/*  SVG country paths  (simplified / schematic)                        */
-/*  viewBox 0 0 900 600 — Europe-centric Mercator-ish projection       */
-/* ------------------------------------------------------------------ */
-
-const COUNTRY_PATHS: Record<string, string> = {
-  // Scandinavia
-  SE: 'M420,30 L430,20 L445,25 L450,60 L455,100 L448,140 L440,160 L430,155 L425,130 L420,100 L418,60Z',
-  DK: 'M400,155 L415,150 L420,160 L415,170 L405,172 L398,165Z',
-  // Western Europe
-  FR: 'M280,240 L310,220 L340,225 L360,235 L365,260 L370,290 L355,320 L330,335 L300,330 L280,310 L270,280 L275,255Z',
-  BE: 'M315,210 L335,205 L340,215 L335,225 L315,220Z',
-  NL: 'M320,190 L340,185 L345,200 L335,205 L320,205Z',
-  CH: 'M345,265 L370,260 L375,275 L360,285 L345,280Z',
-  // Iberian Peninsula
-  ES: 'M200,320 L260,310 L300,330 L290,370 L260,390 L220,385 L195,365 L190,340Z',
-  PT: 'M180,330 L200,320 L195,365 L185,370 L178,355Z',
-  // Central Europe
-  DE: 'M340,175 L380,170 L400,180 L405,210 L395,240 L370,250 L345,255 L330,240 L325,215 L335,195Z',
-  AT: 'M375,255 L410,248 L425,255 L420,270 L395,275 L375,270Z',
-  CZ: 'M385,220 L415,215 L425,230 L415,245 L390,245 L380,235Z',
-  PL: 'M410,170 L460,165 L475,180 L478,210 L465,230 L430,235 L415,220 L405,195Z',
-  SK: 'M425,235 L460,230 L470,240 L460,250 L430,252 L420,245Z',
-  HU: 'M425,260 L465,255 L480,265 L475,285 L450,290 L425,285 L420,275Z',
-  // Balkans
-  HR: 'M410,280 L425,275 L440,285 L445,300 L435,315 L420,310 L408,295Z',
-  RS: 'M445,295 L465,288 L475,300 L472,325 L458,335 L445,325 L440,310Z',
-  BG: 'M478,310 L510,305 L525,315 L520,340 L500,348 L480,340 L475,325Z',
-  GR: 'M460,345 L485,340 L500,350 L498,375 L485,400 L470,395 L460,380 L455,360Z',
-  RO: 'M470,270 L510,260 L535,270 L540,295 L525,315 L500,320 L478,310 L472,290Z',
-  IT: 'M350,285 L370,280 L380,300 L390,330 L400,360 L395,390 L380,400 L370,385 L365,355 L355,325 L345,300Z',
-  // Eastern Europe / CSI
-  UA: 'M500,210 L560,200 L600,215 L610,240 L600,270 L570,280 L540,275 L520,260 L500,240Z',
-  MD: 'M535,268 L545,262 L550,275 L545,285 L535,282Z',
-  BY: 'M490,170 L540,165 L555,180 L550,205 L530,215 L500,210 L485,195Z',
-  RU: 'M560,50 L700,30 L780,60 L800,120 L790,180 L750,220 L700,240 L650,250 L610,240 L600,210 L560,195 L555,160 L560,120 L565,80Z',
-  // Caucasus
-  GE: 'M650,260 L680,255 L690,265 L680,275 L655,278 L648,270Z',
-  AM: 'M680,278 L695,275 L700,285 L692,295 L680,292Z',
-  AZ: 'M700,270 L720,265 L728,280 L720,295 L705,295 L698,285Z',
-  // Central Asia
-  KZ: 'M720,140 L820,120 L860,150 L850,200 L800,220 L750,225 L720,210 L710,180 L715,155Z',
-  // Turkey & Middle East
-  TR: 'M530,340 L600,330 L650,340 L660,360 L640,375 L590,380 L550,370 L530,355Z',
-  IR: 'M670,360 L730,345 L760,370 L755,410 L720,430 L680,420 L665,395 L660,375Z',
-  SA: 'M650,430 L720,420 L750,450 L740,500 L700,520 L660,510 L640,480 L645,450Z',
-  AE: 'M740,460 L765,455 L770,470 L755,480 L740,475Z',
-  // Far East (shown small, at edge)
-  CN: 'M780,280 L860,260 L890,300 L880,360 L840,380 L800,370 L780,340 L775,310Z',
-  IN: 'M770,400 L810,385 L835,410 L830,460 L800,490 L770,470 L760,440Z',
+const ZONE_COLORS = {
+  europa: { base: '#1a7a5e', hover: '#0f5c44' },
+  csi: { base: '#1a5c9e', hover: '#0f4478' },
+  orient: { base: '#c4780f', hover: '#9a5e0a' },
 };
 
-/* ------------------------------------------------------------------ */
-/*  Component                                                          */
-/* ------------------------------------------------------------------ */
+const DEFAULT_COLOR = '#d1d5db';
 
 export default function DacodaEuropeMap() {
   const [selected, setSelected] = useState<string | null>(null);
-  const [hovered, setHovered] = useState<string | null>(null);
 
-  const handleCountryClick = useCallback((code: string) => {
-    setSelected((prev) => (prev === code ? null : code));
-  }, []);
+  const getColor = useCallback(
+    (code: string | undefined, isHovered: boolean) => {
+      if (!code || !COUNTRY_DATA[code]) return DEFAULT_COLOR;
+      const zone = COUNTRY_DATA[code].zone;
+      return isHovered ? ZONE_COLORS[zone].hover : ZONE_COLORS[zone].base;
+    },
+    [],
+  );
 
   const selectedData = selected ? COUNTRY_DATA[selected] : null;
 
   return (
     <section className="bg-white">
-      <div className="container px-4 py-16 lg:px-6 lg:py-24">
-        {/* ---------- Map + Info panel ---------- */}
-        <div className="relative mx-auto max-w-5xl">
-          {/* SVG Map */}
-          <div className="overflow-x-auto rounded-2xl border border-gray-100 bg-[var(--dacoda-light)] p-4 lg:p-6">
-            <svg
-              viewBox="0 0 900 540"
-              className="mx-auto w-full"
-              style={{ minWidth: 600 }}
-              role="img"
-              aria-label="Hartă interactivă — destinații DACODA"
-            >
-              {/* Water background */}
-              <rect
-                x="0"
-                y="0"
-                width="900"
-                height="540"
-                rx="12"
-                fill="#E8EDF2"
+      <div className="container px-4 py-12 lg:px-6 lg:py-16">
+        {/* Legend */}
+        <div className="mb-6 flex flex-wrap justify-center gap-4 text-sm">
+          {[
+            { color: '#1a7a5e', label: 'Europa: rutier direct' },
+            { color: '#1a5c9e', label: 'CSI & Est: extracomunitar' },
+            {
+              color: '#c4780f',
+              label: 'Orient & Asia: rutier/aerian/maritim',
+            },
+            { color: DEFAULT_COLOR, label: 'Neacoperit' },
+          ].map(({ color, label }) => (
+            <div key={label} className="flex items-center gap-2">
+              <div
+                className="h-3 w-5 rounded"
+                style={{ backgroundColor: color }}
               />
+              <span className="text-gray-600">{label}</span>
+            </div>
+          ))}
+        </div>
 
-              {/* Romania highlight pulse */}
-              {COUNTRY_PATHS.RO && (
-                <path
-                  d={COUNTRY_PATHS.RO}
-                  fill="var(--dacoda-orange)"
-                  opacity="0.2"
-                  className="animate-pulse"
-                />
-              )}
+        {/* Map */}
+        <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-slate-50 shadow-sm">
+          <ComposableMap
+            projection="geoAzimuthalEqualArea"
+            projectionConfig={{ rotate: [-20, -52, 0], scale: 680 }}
+            style={{ width: '100%', height: 'auto' }}
+            viewBox="0 0 900 500"
+          >
+            <ZoomableGroup zoom={1} minZoom={0.8} maxZoom={4}>
+              <Geographies geography={GEO_URL}>
+                {({ geographies }) =>
+                  geographies.map((geo) => {
+                    const numericId = String(geo.id).padStart(3, '0');
+                    const code = NUMERIC_TO_CODE[numericId];
+                    const isCovered = !!(code && COUNTRY_DATA[code]);
+                    const isSelected = code === selected;
 
-              {/* Country shapes */}
-              {Object.entries(COUNTRY_PATHS).map(([code, d]) => {
-                const info = COUNTRY_DATA[code];
-                if (!info) return null;
-                const zone = ZONE_META[info.zone];
-                const isHovered = hovered === code;
-                const isSelected = selected === code;
-                const isRomania = code === 'RO';
-
-                return (
-                  <path
-                    key={code}
-                    d={d}
-                    fill={
-                      isRomania
-                        ? 'var(--dacoda-orange)'
-                        : isSelected || isHovered
-                          ? zone.hover
-                          : zone.base
-                    }
-                    stroke="#fff"
-                    strokeWidth={isSelected ? 2.5 : 1.2}
-                    className="cursor-pointer transition-colors duration-150"
-                    onMouseEnter={() => setHovered(code)}
-                    onMouseLeave={() => setHovered(null)}
-                    onClick={() => handleCountryClick(code)}
-                    role="button"
-                    tabIndex={0}
-                    aria-label={info.name}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ')
-                        handleCountryClick(code);
-                    }}
-                  />
-                );
-              })}
-
-              {/* Country labels (abbreviated) */}
-              {Object.entries(COUNTRY_PATHS).map(([code]) => {
-                const info = COUNTRY_DATA[code];
-                if (!info) return null;
-                // Compute rough center of bounding box from path
-                const path = COUNTRY_PATHS[code];
-                const coords = path.match(/[\d.]+/g)?.map(Number) ?? [];
-                let cx = 0,
-                  cy = 0,
-                  n = 0;
-                for (let i = 0; i < coords.length - 1; i += 2) {
-                  cx += coords[i];
-                  cy += coords[i + 1];
-                  n++;
+                    return (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        onClick={() => {
+                          if (code && COUNTRY_DATA[code])
+                            setSelected((prev) =>
+                              prev === code ? null : code,
+                            );
+                        }}
+                        onMouseEnter={() => {
+                          /* handled by style.hover */
+                        }}
+                        onMouseLeave={() => {
+                          /* handled by style.default */
+                        }}
+                        style={{
+                          default: {
+                            fill: isSelected
+                              ? '#0D1F3C'
+                              : getColor(code, false),
+                            stroke: '#fff',
+                            strokeWidth: 0.5,
+                            outline: 'none',
+                          },
+                          hover: {
+                            fill: isCovered ? getColor(code, true) : '#9ca3af',
+                            stroke: '#fff',
+                            strokeWidth: 0.5,
+                            outline: 'none',
+                            cursor: isCovered ? 'pointer' : 'default',
+                          },
+                          pressed: {
+                            fill: '#0D1F3C',
+                            outline: 'none',
+                          },
+                        }}
+                      />
+                    );
+                  })
                 }
-                if (n === 0) return null;
-                cx /= n;
-                cy /= n;
-                return (
-                  <text
-                    key={`label-${code}`}
-                    x={cx}
-                    y={cy}
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    fontSize="10"
-                    fontWeight="600"
-                    fill="#fff"
-                    pointerEvents="none"
-                    className="select-none"
-                  >
-                    {code}
-                  </text>
-                );
-              })}
-            </svg>
-          </div>
+              </Geographies>
+            </ZoomableGroup>
+          </ComposableMap>
 
-          {/* Selected country panel */}
+          {/* Info panel */}
           {selectedData && selected && (
-            <div className="absolute right-4 bottom-4 z-10 w-72 rounded-xl border border-gray-200 bg-white p-5 shadow-lg lg:right-8 lg:bottom-8">
-              <button
-                onClick={() => setSelected(null)}
-                className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
-                aria-label="Închide"
-              >
-                <X className="h-4 w-4" />
-              </button>
-
-              <h3 className="text-dacoda-navy mb-1 text-lg font-bold">
-                {selectedData.name}
-              </h3>
-
-              <span
-                className="mb-3 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium text-white"
-                style={{ backgroundColor: ZONE_META[selectedData.zone].base }}
-              >
-                {ZONE_META[selectedData.zone].label}
-              </span>
-
-              <div className="text-dacoda-gray space-y-2 text-sm">
-                <div className="flex items-start gap-2">
-                  <Truck className="mt-0.5 h-4 w-4 shrink-0" />
+            <div className="absolute top-4 right-4 w-64 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+              <div className="mb-3 flex items-start justify-between">
+                <div>
+                  <h3
+                    className="font-bold"
+                    style={{ color: 'var(--dacoda-navy)' }}
+                  >
+                    {selectedData.name}
+                  </h3>
+                  <span
+                    className="mt-0.5 inline-block rounded-full px-2 py-0.5 text-xs font-medium text-white"
+                    style={{
+                      backgroundColor: ZONE_COLORS[selectedData.zone].base,
+                    }}
+                  >
+                    {selectedData.zone === 'europa'
+                      ? 'Europa'
+                      : selectedData.zone === 'csi'
+                        ? 'CSI & Est'
+                        : 'Orient & Asia'}
+                  </span>
+                </div>
+                <button
+                  onClick={() => setSelected(null)}
+                  className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="space-y-1.5 text-sm">
+                <div className="flex items-center gap-2 text-gray-600">
+                  <span>🚛</span>
                   <span>{selectedData.transport.join(', ')}</span>
                 </div>
-                <div className="flex items-start gap-2">
-                  <Clock className="mt-0.5 h-4 w-4 shrink-0" />
-                  <span>{selectedData.transitTime}</span>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <span>⏱</span>
+                  <span>
+                    Transit din RO: <strong>{selectedData.transitTime}</strong>
+                  </span>
                 </div>
               </div>
-
               <Link
-                href="/contact"
-                className="bg-dacoda-orange hover:bg-dacoda-orange-dark mt-4 flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
+                href="/cerere-oferta"
+                className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold text-white transition-opacity hover:opacity-90"
+                style={{ backgroundColor: 'var(--dacoda-orange)' }}
               >
                 Cere ofertă pentru {selectedData.name}
-                <ArrowRight className="h-3.5 w-3.5" />
+                <ArrowRight className="h-3 w-3" />
               </Link>
             </div>
           )}
+
+          <p className="absolute right-3 bottom-2 text-xs text-gray-400">
+            Click pe o țară pentru detalii
+          </p>
         </div>
 
-        {/* ---------- Legend ---------- */}
-        <div className="mx-auto mt-8 flex max-w-5xl flex-wrap justify-center gap-6">
+        {/* Country lists */}
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
           {(
-            Object.entries(ZONE_META) as [
-              keyof typeof ZONE_META,
-              (typeof ZONE_META)[keyof typeof ZONE_META],
-            ][]
-          ).map(([key, zone]) => (
-            <div key={key} className="flex items-center gap-2 text-sm">
-              <span
-                className="inline-block h-3.5 w-3.5 rounded-sm"
-                style={{ backgroundColor: zone.base }}
-              />
-              <span className="text-dacoda-gray font-medium">
-                {zone.label}
-                {key === 'europa' && ' — transport rutier direct'}
-                {key === 'csi' && ' — transport extracomunitar'}
-                {key === 'orient' && ' — rutier + aerian + maritim'}
-              </span>
+            [
+              ['europa', '🇪🇺 Europa'],
+              ['csi', '🌐 CSI & Est'],
+              ['orient', '🌍 Orient & Asia'],
+            ] as const
+          ).map(([zone, title]) => (
+            <div key={zone}>
+              <h3
+                className="mb-3 text-sm font-bold tracking-wider uppercase"
+                style={{ color: ZONE_COLORS[zone].base }}
+              >
+                {title}
+              </h3>
+              <div className="flex flex-wrap gap-1.5">
+                {Object.entries(COUNTRY_DATA)
+                  .filter(([, v]) => v.zone === zone)
+                  .map(([code, v]) => (
+                    <button
+                      key={code}
+                      onClick={() =>
+                        setSelected((prev) => (prev === code ? null : code))
+                      }
+                      className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-all ${
+                        selected === code
+                          ? 'text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                      style={
+                        selected === code
+                          ? {
+                              backgroundColor: ZONE_COLORS[zone].base,
+                            }
+                          : {}
+                      }
+                    >
+                      {v.name}
+                    </button>
+                  ))}
+              </div>
             </div>
           ))}
-          <div className="flex items-center gap-2 text-sm">
-            <span
-              className="inline-block h-3.5 w-3.5 rounded-sm"
-              style={{ backgroundColor: 'var(--dacoda-orange)' }}
-            />
-            <span className="text-dacoda-gray font-medium">
-              România — bază operațiuni
-            </span>
-          </div>
-        </div>
-
-        {/* ---------- Country list by zone ---------- */}
-        <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3">
-          {(
-            Object.entries(ZONE_META) as [
-              keyof typeof ZONE_META,
-              (typeof ZONE_META)[keyof typeof ZONE_META],
-            ][]
-          ).map(([zoneKey, zone]) => {
-            const countries = Object.entries(COUNTRY_DATA).filter(
-              ([, c]) => c.zone === zoneKey && c.name !== 'România',
-            );
-            return (
-              <div key={zoneKey}>
-                <h3
-                  className="mb-4 flex items-center gap-2 text-lg font-bold"
-                  style={{ color: zone.base }}
-                >
-                  <MapPin className="h-5 w-5" />
-                  {zone.label}
-                </h3>
-                <ul className="space-y-1.5">
-                  {countries.map(([code, c]) => (
-                    <li key={code}>
-                      <button
-                        onClick={() => {
-                          setSelected(code);
-                          // Scroll map into view on mobile
-                          document
-                            .querySelector('svg[role="img"]')
-                            ?.scrollIntoView({
-                              behavior: 'smooth',
-                              block: 'center',
-                            });
-                        }}
-                        className="text-dacoda-gray hover:text-dacoda-navy w-full text-left text-sm transition-colors"
-                      >
-                        <span className="font-medium">{c.name}</span>
-                        <span className="ml-1 text-xs opacity-60">
-                          ({c.transitTime})
-                        </span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
         </div>
       </div>
     </section>

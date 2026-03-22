@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Politică de Confidențialitate — DACODA SRL',
+  title: 'Politică de Confidențialitate | DACODA SRL',
   description:
-    'Politica de confidențialitate DACODA SRL — cum colectăm, utilizăm și protejăm datele personale conform GDPR.',
+    'Politica de confidențialitate DACODA SRL: cum colectăm, utilizăm și protejăm datele personale conform GDPR.',
 };
 
 export default function ConfidentialitatePage() {

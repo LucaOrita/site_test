@@ -12,7 +12,7 @@ const services = [
   {
     icon: Truck,
     title: 'Transport Rutier',
-    text: 'FTL, LTL și grupaj — intern, intracomunitar și extracomunitar',
+    text: 'FTL, LTL și grupaj: intern, intracomunitar și extracomunitar',
     href: '/servicii/transport-rutier',
     featured: true,
   },
@@ -31,7 +31,7 @@ const services = [
   {
     icon: Construction,
     title: 'Transport Agabaritic',
-    text: 'Mărfuri grele și supradimensionate — ancore, escortă, autorizații',
+    text: 'Mărfuri grele și supradimensionate: ancore, escortă, autorizații',
     href: '/servicii/transport-agabaritic',
   },
   {

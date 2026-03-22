@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 
 const offeringCards = [
   {
-    title: 'FTL — Camion Complet',
+    title: 'FTL: Camion Complet',
     text: 'Ai marfă care ocupă un camion întreg. Transport direct, fără opriri intermediare.',
     details: [
       '20–24 tone capacitate',
@@ -60,7 +60,7 @@ const offeringCards = [
     ],
   },
   {
-    title: 'LTL — Transport Parțial',
+    title: 'LTL: Transport Parțial',
     text: 'Marfă mai mică de un camion întreg. Plătești doar pentru spațiul ocupat.',
     details: [
       '1–15 tone',
@@ -154,7 +154,7 @@ const steps = [
   {
     icon: MapPin,
     title: 'Urmărești transportul',
-    text: 'Ești informat pe tot parcursul — de la încărcare până la livrarea confirmată.',
+    text: 'Ești informat pe tot parcursul, de la încărcare până la livrarea confirmată.',
   },
 ];
 
@@ -169,7 +169,7 @@ const faqs = [
   },
   {
     q: 'Organizați și transport pentru mărfuri speciale?',
-    a: 'Da — transport ADR (mărfuri periculoase), frigorific, agabaritic și pe umărașe. Fiecare tip de marfă are soluția lui.',
+    a: 'Da, transport ADR (mărfuri periculoase), frigorific, agabaritic și pe umărașe. Fiecare tip de marfă are soluția lui.',
   },
 ];
 
@@ -217,7 +217,7 @@ const faqSchemaData = makeFaqSchema([
   },
   {
     q: 'Organizați și transport pentru mărfuri speciale?',
-    a: 'Da — transport ADR (mărfuri periculoase), frigorific, agabaritic și pe umărașe. Fiecare tip de marfă are soluția lui.',
+    a: 'Da, transport ADR (mărfuri periculoase), frigorific, agabaritic și pe umărașe. Fiecare tip de marfă are soluția lui.',
   },
 ]);
 
@@ -254,7 +254,7 @@ export default function TransportRutierPage() {
             src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=75"
             alt="Camion TIR transport rutier internațional"
             fill
-            className="object-cover opacity-25"
+            className="object-cover opacity-40"
             sizes="100vw"
           />
         </div>
@@ -273,7 +273,7 @@ export default function TransportRutierPage() {
             Transport Rutier Internațional
           </h1>
           <p className="mb-8 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            FTL, LTL și grupaj — intern, intracomunitar și extracomunitar. 32 de
+            FTL, LTL și grupaj: intern, intracomunitar și extracomunitar. 32 de
             ani de experiență pe rutele europene și CSI.
           </p>
 

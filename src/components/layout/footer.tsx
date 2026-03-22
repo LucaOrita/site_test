@@ -1,4 +1,4 @@
-import { Facebook, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { Clock, Facebook, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -28,20 +28,20 @@ export default function Footer() {
   return (
     <footer className="bg-dacoda-navy text-white">
       <div className="container px-4 py-12 lg:px-6 lg:py-20">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          {/* Column 1 — Brand */}
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">
+          {/* Column 1 — Brand & Social */}
           <div className="space-y-5 sm:col-span-2 lg:col-span-1">
             <div>
               <Link href="/" className="inline-block">
                 <Image
-                  src="/images/logo-dacoda.png"
-                  alt="DACODA — Expediții Rutiere"
-                  width={140}
-                  height={59}
-                  className="h-10 w-auto brightness-0 invert"
+                  src="/images/logo-dacoda-simplu.png"
+                  alt="DACODA Expediții Rutiere"
+                  width={180}
+                  height={62}
+                  className="h-14 w-auto brightness-0 invert lg:h-16"
                 />
               </Link>
-              <p className="mt-1 text-sm font-medium text-white/80">
+              <p className="text-dacoda-orange mt-2 text-sm font-medium">
                 Siguranță și Predictibilitate
               </p>
             </div>
@@ -51,31 +51,6 @@ export default function Footer() {
               <br />
               Capital 100% românesc.
             </p>
-
-            <div className="space-y-2.5 text-sm text-white/70">
-              <div className="flex items-start gap-2">
-                <MapPin className="text-dacoda-orange mt-0.5 h-4 w-4 shrink-0" />
-                <span>Timișoara, România</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="text-dacoda-orange h-4 w-4 shrink-0" />
-                <a
-                  href="tel:+40785225446"
-                  className="transition-colors hover:text-white"
-                >
-                  +40 785 225 446
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="text-dacoda-orange h-4 w-4 shrink-0" />
-                <a
-                  href="mailto:comercial@dacoda.ro"
-                  className="transition-colors hover:text-white"
-                >
-                  comercial@dacoda.ro
-                </a>
-              </div>
-            </div>
 
             {/* Social */}
             <div className="flex items-center gap-2.5">
@@ -100,7 +75,80 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2 — Servicii */}
+          {/* Column 2 — Puncte de lucru */}
+          <div className="space-y-5">
+            <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
+              Puncte de lucru
+            </h4>
+
+            {/* București */}
+            <div className="space-y-2 text-sm text-white/70">
+              <p className="font-medium text-white/90">Sediu: București</p>
+              <div className="flex items-start gap-2">
+                <MapPin className="text-dacoda-orange mt-0.5 h-4 w-4 shrink-0" />
+                <span>Str. Vespasian nr. 41A, et. 1, Sector 1</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="text-dacoda-orange h-4 w-4 shrink-0" />
+                <a
+                  href="tel:+40785225446"
+                  className="transition-colors hover:text-white"
+                >
+                  +40 785 225 446
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="text-dacoda-orange h-4 w-4 shrink-0" />
+                <a
+                  href="mailto:oritaluca@gmail.com"
+                  className="transition-colors hover:text-white"
+                >
+                  oritaluca@gmail.com
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="text-dacoda-orange h-4 w-4 shrink-0" />
+                <span>Luni–Vineri, 8:30–17:30</span>
+              </div>
+            </div>
+
+            {/* Cluj-Napoca */}
+            <div className="space-y-2 border-t border-white/10 pt-4 text-sm text-white/70">
+              <p className="font-medium text-white/90">
+                Punct de lucru: Cluj-Napoca
+              </p>
+              <div className="flex items-start gap-2">
+                <MapPin className="text-dacoda-orange mt-0.5 h-4 w-4 shrink-0" />
+                <span>Str. Croitorilor nr. 16, Cluj-Napoca</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="text-dacoda-orange h-4 w-4 shrink-0" />
+                <a
+                  href="tel:+40785225446"
+                  className="transition-colors hover:text-white"
+                >
+                  +40 785 225 446
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="text-dacoda-orange h-4 w-4 shrink-0" />
+                <a
+                  href="mailto:oritaluca@gmail.com"
+                  className="transition-colors hover:text-white"
+                >
+                  oritaluca@gmail.com
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="text-dacoda-orange h-4 w-4 shrink-0" />
+                <span>Luni–Vineri, 8:30–17:30</span>
+              </div>
+            </div>
+
+            <p className="text-xs text-white/40">CUI: 4989577</p>
+          </div>
+
+          {/* Column 3 — Servicii */}
           <div>
             <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
               Servicii
@@ -110,7 +158,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 transition-colors hover:text-white"
+                    className="hover:text-dacoda-orange text-sm text-gray-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -119,7 +167,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3 — Companie */}
+          {/* Column 4 — Companie */}
           <div>
             <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
               Companie
@@ -129,7 +177,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 transition-colors hover:text-white"
+                    className="hover:text-dacoda-orange text-sm text-gray-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -138,7 +186,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 — Legal & Contact */}
+          {/* Column 5 — Legal */}
           <div>
             <h4 className="mb-4 text-xs font-medium tracking-wider text-white/50 uppercase">
               Legal
@@ -148,7 +196,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 transition-colors hover:text-white"
+                    className="hover:text-dacoda-orange text-sm text-gray-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -158,13 +206,6 @@ export default function Footer() {
                 Licență intermediere transport
               </li>
             </ul>
-
-            <Link
-              href="/cerere-oferta"
-              className="bg-dacoda-orange hover:bg-dacoda-orange-dark mt-6 inline-block rounded-xl px-5 py-2.5 text-sm font-medium text-white transition-colors"
-            >
-              Cere ofertă
-            </Link>
           </div>
         </div>
 
@@ -177,19 +218,19 @@ export default function Footer() {
             <div className="flex items-center gap-4">
               <Link
                 href="/confidentialitate"
-                className="text-xs text-white/50 transition-colors hover:text-white"
+                className="hover:text-dacoda-orange text-xs text-white/50 transition-colors"
               >
                 Confidențialitate
               </Link>
               <Link
                 href="/termeni"
-                className="text-xs text-white/50 transition-colors hover:text-white"
+                className="hover:text-dacoda-orange text-xs text-white/50 transition-colors"
               >
                 Termeni
               </Link>
               <Link
                 href="/cookies"
-                className="text-xs text-white/50 transition-colors hover:text-white"
+                className="hover:text-dacoda-orange text-xs text-white/50 transition-colors"
               >
                 Cookies
               </Link>

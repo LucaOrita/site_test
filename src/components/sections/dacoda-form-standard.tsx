@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   AlertTriangle,
   Construction,
-  Loader2,
   Plane,
   Ship,
   Snowflake,
@@ -192,7 +191,7 @@ export default function DacodaFormStandard({ defaultValues }: Props) {
       Tonaj: data.tonaj,
       'Tip transport': data.tipTransport,
       Marfa: data.descriereMarfa,
-      'Cerinte speciale': data.cerinteSpeciale ?? '—',
+      'Cerinte speciale': data.cerinteSpeciale ?? '-',
       'Data incarcare': data.dataIncarcare,
       'Data livrare': data.dataLivrare ?? 'Flexibil',
       Buget: data.buget
@@ -209,34 +208,48 @@ export default function DacodaFormStandard({ defaultValues }: Props) {
 
   if (submitStatus === 'success') {
     return (
-      <div className="rounded-2xl border border-green-200 bg-green-50 p-10 text-center">
-        <div className="mb-4 text-5xl">✅</div>
+      <div className="animate-in fade-in slide-in-from-bottom-4 rounded-2xl border-2 border-green-300 bg-green-50 p-10 text-center duration-500">
+        <div className="mb-4 text-6xl">✅</div>
         <h3 className="mb-2 text-2xl font-bold text-green-800">
           Cererea a fost trimisă!
         </h3>
-        <p className="text-green-700">
+        <p className="mb-1 text-green-700">
           Te vom contacta în cel mult 2 ore în zilele lucrătoare.
         </p>
-        <p className="mt-4 text-sm text-green-600">
-          Urgent?{' '}
-          <a href="tel:+40785225446" className="font-semibold underline">
-            +40 785 225 446
-          </a>
+        <p className="text-sm text-green-600">
+          Program: Luni–Vineri, 8:00–18:00
         </p>
+        <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
+          <a
+            href="tel:+40785225446"
+            className="inline-flex items-center gap-2 rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800"
+          >
+            📞 Sună direct acum
+          </a>
+          <button
+            onClick={() => setSubmitStatus('idle')}
+            className="text-sm text-green-600 underline"
+          >
+            Trimite altă cerere
+          </button>
+        </div>
       </div>
     );
   }
 
   if (submitStatus === 'error') {
     return (
-      <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
-        <p className="mb-3 font-semibold text-red-800">Ceva nu a funcționat.</p>
-        <p className="mb-4 text-sm text-red-700">Contactează-ne direct:</p>
-        <p className="font-bold text-red-800">📞 +40 785 225 446</p>
-        <p className="font-bold text-red-800">✉️ oritaluca@gmail.com</p>
+      <div className="animate-in fade-in slide-in-from-bottom-4 rounded-2xl border-2 border-red-300 bg-red-50 p-8 text-center duration-500">
+        <div className="mb-3 text-5xl">❌</div>
+        <h3 className="mb-1 text-xl font-bold text-red-800">
+          Nu s-a putut trimite cererea
+        </h3>
+        <p className="mb-4 text-sm text-red-600">Contactează-ne direct:</p>
+        <p className="text-lg font-bold text-red-800">📞 +40 785 225 446</p>
+        <p className="font-semibold text-red-700">✉️ oritaluca@gmail.com</p>
         <button
           onClick={() => setSubmitStatus('idle')}
-          className="mt-4 text-sm text-red-600 underline"
+          className="mt-5 rounded-lg border border-red-300 px-5 py-2 text-sm font-medium text-red-700 hover:bg-red-100"
         >
           Încearcă din nou
         </button>
@@ -649,12 +662,40 @@ export default function DacodaFormStandard({ defaultValues }: Props) {
       <button
         type="submit"
         disabled={submitStatus === 'loading'}
-        className="bg-dacoda-orange hover:bg-dacoda-orange-dark flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-3 rounded-xl px-8 py-4 text-base font-semibold text-white transition-all disabled:cursor-not-allowed disabled:opacity-60"
+        style={{
+          backgroundColor:
+            submitStatus === 'loading'
+              ? 'var(--dacoda-orange-dark)'
+              : 'var(--dacoda-orange)',
+        }}
       >
-        {submitStatus === 'loading' && (
-          <Loader2 className="h-4 w-4 animate-spin" />
+        {submitStatus === 'loading' ? (
+          <>
+            <svg
+              className="h-5 w-5 animate-spin"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+              />
+            </svg>
+            Se trimite cererea...
+          </>
+        ) : (
+          'Trimite cererea'
         )}
-        {submitStatus === 'loading' ? 'Se trimite...' : 'Trimite cererea'}
       </button>
     </form>
   );

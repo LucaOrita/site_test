@@ -14,7 +14,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Servicii Transport | DACODA SRL',
   description:
-    'Transport rutier, ADR, frigorific, agabaritic și cargo internațional — soluții complete pentru orice tip de marfă. Cerere ofertă în 2 ore.',
+    'Transport rutier, ADR, frigorific, agabaritic și cargo internațional. Soluții complete pentru orice tip de marfă. Cerere ofertă în 2 ore.',
   alternates: {
     canonical: 'https://dacoda.ro/servicii',
   },
@@ -91,8 +91,8 @@ export default function ServiciiPage() {
             Serviciile noastre
           </h1>
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            Transport rutier, ADR, frigorific, agabaritic și cargo internațional
-            — soluții complete pentru orice tip de marfă.
+            Transport rutier, ADR, frigorific, agabaritic și cargo internațional.
+            Soluții complete pentru orice tip de marfă.
           </p>
         </div>
       </section>
@@ -175,7 +175,7 @@ export default function ServiciiPage() {
                 De ce o casă de expediții?
               </h2>
               <p className="text-dacoda-gray text-base leading-relaxed md:text-lg">
-                O casă de expediții nu este o firmă de transport — este
+                O casă de expediții nu este o firmă de transport, ci este
                 partenerul care organizează transportul în numele tău, negociază
                 cu transportatorii, gestionează documentația și răspunde de
                 marfa ta conform Convenției CMR.

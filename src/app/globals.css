@@ -610,3 +610,7 @@ body {
   line-height: 1.7;
   font-weight: 700;
 }
+
+@utility text-faux-bold {
+  text-shadow: 0.4px 0 0 currentColor, -0.4px 0 0 currentColor;
+}

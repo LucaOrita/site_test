@@ -18,7 +18,7 @@ import {
 } from '@/lib/schema';
 
 export const metadata: Metadata = {
-  title: 'Transport Frigorific — Temperatură Controlată | DACODA SRL',
+  title: 'Transport Frigorific Temperatură Controlată | DACODA SRL',
   description:
     'Transport marfă la temperatură controlată în Europa. Agregate certificate, diagrame temperatură, 2 șoferi per cursă. DACODA SRL.',
   alternates: {
@@ -42,7 +42,7 @@ const highlights = [
   {
     emoji: '📊',
     title: 'Diagrame de temperatură',
-    text: 'Fiecare transport frigorific vine cu diagrama de temperatură — dovada că marfa a fost menținută la parametri pe tot traseul.',
+    text: 'Fiecare transport frigorific vine cu diagrama de temperatură, dovada că marfa a fost menținută la parametri pe tot traseul.',
   },
   {
     emoji: '👥',
@@ -147,7 +147,7 @@ export default function TransportFrigorificPage() {
             src="https://images.unsplash.com/photo-1625504615927-c6336b4b44e9?w=1200&q=75"
             alt="Camion frigorific transport temperatură controlată"
             fill
-            className="object-cover opacity-25"
+            className="object-cover opacity-40"
             sizes="100vw"
           />
         </div>
@@ -166,7 +166,7 @@ export default function TransportFrigorificPage() {
             Transport Frigorific
           </h1>
           <p className="mb-8 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            Marfa ta perisabilă ajunge la destinație la temperatura corectă —
+            Marfa ta perisabilă ajunge la destinație la temperatura corectă,
             garantat.
           </p>
 

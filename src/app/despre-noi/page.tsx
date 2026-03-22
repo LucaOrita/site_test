@@ -14,14 +14,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Despre noi — DACODA SRL | 32 ani în transporturi',
+  title: 'Despre DACODA SRL | 32 ani în transporturi',
   description:
     'Casă de expediții fondată în 1993, capital 100% românesc. Experiență în transport rutier internațional, ADR, frigorific și agabaritic.',
   alternates: {
     canonical: 'https://dacoda.ro/despre-noi',
   },
   openGraph: {
-    title: 'Despre DACODA SRL — 32 ani în transporturi',
+    title: 'Despre DACODA SRL | 32 ani în transporturi',
     description:
       'Casă de expediții fondată în 1993. Capital 100% românesc. 1.100+ clienți activi, 3.500+ transportatori parteneri.',
     url: 'https://dacoda.ro/despre-noi',
@@ -70,7 +70,7 @@ const diferentiatori = [
   {
     icon: Globe,
     title: 'Expertiza CSI',
-    text: 'Rute în Ucraina, Kazakhstan, Georgia, Armenia — piețe pe care puțini expeditori din România le cunosc.',
+    text: 'Rute în Ucraina, Kazakhstan, Georgia, Armenia, piețe pe care puțini expeditori din România le cunosc.',
   },
   {
     icon: Building2,
@@ -132,9 +132,9 @@ export default function DespreNoiPage() {
                 <p>
                   De-a lungul anilor, am construit relații solide cu
                   transportatori din toată Europa și am acumulat experiența
-                  necesară pentru a gestiona orice tip de transport — de la
-                  marfă generală la mărfuri periculoase, agabaritice sau care
-                  necesită temperatură controlată.
+                  necesară pentru a gestiona orice tip de transport, de la marfă
+                  generală la mărfuri periculoase, agabaritice sau care necesită
+                  temperatură controlată.
                 </p>
                 <p>
                   Astăzi, DACODA organizează ~8.400 de curse pe an pentru peste
@@ -150,8 +150,8 @@ export default function DespreNoiPage() {
               style={{ height: '420px' }}
             >
               <Image
-                src="/images/agabaritic/11Lili.png"
-                alt="Transport DACODA SRL — Volvo FH convoi excepțional 32 ani experiență"
+                src="/images/agabaritic/11Lili.jpg"
+                alt="Transport DACODA SRL Volvo FH convoi excepțional 32 ani experiență"
                 fill
                 className="object-cover"
                 style={{ objectPosition: 'center 35%' }}
@@ -161,7 +161,7 @@ export default function DespreNoiPage() {
                 className="absolute top-4 left-4 rounded-full px-4 py-2 text-sm font-semibold text-white"
                 style={{ backgroundColor: 'var(--dacoda-navy)' }}
               >
-                Din 1993 — 32 ani
+                Din 1993 · 32 ani
               </div>
             </div>
           </div>
